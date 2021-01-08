@@ -6,9 +6,7 @@ import java.util.List;
 public class Application
 {
     private ArrayList<Company> companies;
-
     private ArrayList<User> users;
-
     private static Application instance = null;
 
     private Application(ArrayList<Company> companies, ArrayList<User> users)
@@ -19,33 +17,43 @@ public class Application
 
     private Application()
     {
-        this.companies = null;
-        this.users = null;
+        this.companies = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
     public void add(Company company)
     {
-        return;
+        companies.add(company);
     }
 
     public void add(User user)
     {
-        return;
+        users.add(user);
     }
 
     public boolean remove(Company company)
     {
-        return false;
+        boolean contains = companies.contains(company);
+        if (!contains)
+        {
+            companies.remove(company);
+        }
+        return contains;
     }
 
     public boolean remove(User user)
     {
-        return false;
+        boolean contains = users.contains(user);
+        if (!contains)
+        {
+            users.remove(user);
+        }
+        return contains;
     }
 
     public static Application getInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = new Application();
         }
@@ -54,7 +62,12 @@ public class Application
 
     public ArrayList<Job> getJobs(List<String> companies)
     {
-        return null;
+        ArrayList<Job> jobs = new ArrayList<>();
+        for (Company company : this.companies)
+        {
+            jobs.addAll(company.getJobs());
+        }
+        return jobs;
     }
 
     public ArrayList<Company> getCompanies()
@@ -64,6 +77,13 @@ public class Application
 
     public Company getCompany(String name)
     {
+        for (Company company : this.companies)
+        {
+            if (company.getCompanyName().equals(name))
+            {
+                return company;
+            }
+        }
         return null;
     }
 

@@ -1,11 +1,13 @@
+import Exceptions.InvalidDatesException;
+
 import java.time.LocalDate;
 
-public class Experience implements Comparable
+public class Experience implements Comparable<Experience>
 {
-    private LocalDate start;
-    private LocalDate end;
-    private String position;
-    private Company company;
+    private final LocalDate start;
+    private final LocalDate end;
+    private final String position;
+    private final Company company;
 
     public Experience(LocalDate start, LocalDate end, String position, Company company) throws InvalidDatesException
     {
@@ -20,12 +22,12 @@ public class Experience implements Comparable
     }
 
     @Override
-    public int compareTo(Object other)
+    public int compareTo(Experience otherExperience)
     {
-        Experience otherExperience = (Experience) other;
+        //Experience otherExperience = (Experience) other;
         if (otherExperience.end == null || end == null)
         {
-            return company.name.compareTo(otherExperience.company.name);
+            return company.getCompanyName().compareTo(otherExperience.company.getCompanyName());
         }
 
         return otherExperience.end.compareTo(end);

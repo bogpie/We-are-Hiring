@@ -4,9 +4,8 @@ import java.util.TreeSet;
 public class Employee extends Consumer
 {
     private String companyName;
+
     private Double salary;
-
-
 
     protected Employee(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet, String companyName, Double salary)
     {
@@ -14,10 +13,18 @@ public class Employee extends Consumer
         this.companyName = companyName;
         this.salary = salary;
     }
-
-
     public Employee()
     {
         super();
+    }
+
+    public String getCompanyName()
+    {
+        return companyName;
+    }
+
+    public Double getSalary()
+    {
+        return salary;
     }
 }

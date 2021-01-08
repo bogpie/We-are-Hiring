@@ -1,23 +1,29 @@
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
 
 public class Information {
-    private String familyName;
-    private String givenName;
-    private String email;
-    private Date birthDate;
-    private String sex;
-    private ArrayList<Map<String, String>> languages;
+    private final String familyName;
+    private final String givenName;
+    private final String email;
+    private final Date dateOfBirth;
+    private final String gender;
+    private final ArrayList<String> languages;
+    private final ArrayList<String> languagesLevel;
 
-    public ArrayList<Map<String, String>> getLanguages() {
-        return languages;
+    public Information(String familyName, String givenName, String email, Date dateOfBirth, String gender, ArrayList<String> languages, ArrayList<String> languagesLevel)
+    {
+        this.familyName = familyName;
+        this.givenName = givenName;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.languages = languages;
+        this.languagesLevel = languagesLevel;
     }
 
     public String getFamilyName() {
         return familyName;
     }
-
     public String getGivenName() {
         return givenName;
     }
@@ -26,11 +32,21 @@ public class Information {
         return email;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
+    }
+
+    public ArrayList<String> getLanguages()
+    {
+        return languages;
+    }
+
+    public ArrayList<String> getLanguagesLevel()
+    {
+        return languagesLevel;
     }
 }

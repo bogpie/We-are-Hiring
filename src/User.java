@@ -1,13 +1,10 @@
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TreeSet;
+import java.util.*;
 
 public class User extends Consumer
 {
     private ArrayList<String> companyNames;
 
-    protected User(Resume resume, ArrayList<User> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet)
+    protected User(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet)
     {
         super(resume, network, educationSet, experienceSet);
     }

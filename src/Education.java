@@ -1,48 +1,49 @@
+import Exceptions.InvalidDatesException;
+
 import java.time.LocalDate;
 
-public class Education implements Comparable
+public class Education implements Comparable<Education>
 {
-    private LocalDate start;
-    private LocalDate end;
-    private String institution;
-    private String level;
-    private Double average;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final String institution;
+    private final String level;
+    private final Double grade;
 
-    public Education(LocalDate start, LocalDate end, String institution, String level, Double average) throws InvalidDatesException
+    public Education(LocalDate start, LocalDate end, String institution, String level, Double grade) throws InvalidDatesException
     {
         this.level = level;
-        this.average = average;
+        this.grade = grade;
         this.institution = institution;
         if(start.compareTo(end) > 0)
         {
             throw new InvalidDatesException();
         }
-        this.start = start;
-        this.end = end;
+        this.startDate = start;
+        this.endDate = end;
     }
 
-    @Override
-    public int compareTo(Object other)
+    public int compareTo(Education otherEducation)
     {
-        Education otherEducation = (Education) other;
+        //Education otherEducation = (Education) other;
 
-        if (end == null || otherEducation.end == null)
+        if (endDate == null || otherEducation.endDate == null)
         {
-            return otherEducation.start.compareTo(start);
+            return otherEducation.startDate.compareTo(startDate);
         }
-        if (otherEducation.end == end)
+        if (otherEducation.endDate == endDate)
         {
-            return otherEducation.average.compareTo(average);
+            return otherEducation.grade.compareTo(grade);
         }
         else
         {
-            return otherEducation.end.compareTo(end);
+            return otherEducation.endDate.compareTo(endDate);
         }
     }
 
-    public LocalDate getStart()
+    public LocalDate getStartDate()
     {
-        return start;
+        return startDate;
     }
 
     public String getInstitution()
@@ -55,13 +56,13 @@ public class Education implements Comparable
         return level;
     }
 
-    public Double getAverage()
+    public Double getGrade()
     {
-        return average;
+        return grade;
     }
 
-    public LocalDate getEnd()
+    public LocalDate getEndDate()
     {
-        return end;
+        return endDate;
     }
 }

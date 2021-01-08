@@ -3,12 +3,12 @@ import java.util.TreeSet;
 
 public class Recruiter extends Employee
 {
-    public Double rating;
+    private Double rating;
 
-    protected Recruiter(Resume resume, ArrayList<User> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet, String companyName, Double salary)
+    protected Recruiter(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet, String companyName, Double salary)
     {
         super(resume, network, educationSet, experienceSet, companyName, salary);
-        rating = 5.0;
+        setRating(5.0);
     }
 
     protected Recruiter()
@@ -19,8 +19,17 @@ public class Recruiter extends Employee
     public int evaluate(Job job, User user)
     {
         Double totalScore = user.getTotalScore();
-        Request<Job,Consumer> request = new Request<Job, Consumer>(job,user,this,totalScore);
-        int result = (int) (rating * totalScore);
-        return result;
+        Request<Job, Consumer> request = new Request<>(job, user, this, totalScore);
+        return (int) (getRating() * totalScore);
+    }
+
+    public Double getRating()
+    {
+        return rating;
+    }
+
+    public void setRating(Double rating)
+    {
+        this.rating = rating;
     }
 }

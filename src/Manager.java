@@ -1,7 +1,4 @@
-import com.sun.source.tree.Tree;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.TreeSet;
 
 /*
@@ -27,8 +24,8 @@ public class Manager extends Employee
     {
         for (Request<Job, Consumer> request : requests)
         {
-            if (job.noPositions == 0) break;
-            if (request.getKey().name != job.name) continue;
+            if (job.getNoPositions() == 0) break;
+            if (!request.getKey().getJobName().equals(job.getJobName())) continue;
 
             Application application = Application.getInstance();
             ArrayList<User> users = application.getUsers();
@@ -43,16 +40,17 @@ public class Manager extends Employee
             }
 
             // previously employed to another company
-            for(Company company : application.getCompanies())
+            for (Company company : application.getCompanies())
             {
-                ///
+                /// ???
+                break;
             }
 
             Employee employee = new Employee();
             employee = user.convert();
 
             // adaugat in departamentul specific jobului
-            --job.noPositions;
+            job.setNoPositions(job.getNoPositions() - 1);
         }
 
     }

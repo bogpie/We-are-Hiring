@@ -1,8 +1,9 @@
-public class Request<K, V> implements Comparable
+public class Request<K, V> implements Comparable<Request<K,V>>
 {
-    private K key;
-    private V value1, value2;
-    private Double score;
+    private final K key;
+    private final V value1;
+    private final V value2;
+    private final Double score;
 
     public Request(K key, V value1, V value2, Double score)
     {
@@ -18,9 +19,10 @@ public class Request<K, V> implements Comparable
     }
 
     @Override
-    public int compareTo(Object other)
+    public int compareTo(Request <K,V> otherRequest)
     {
-        return ((Request) other).getScore().compareTo(getScore());
+        //return ((Request) other).getScore().compareTo(getScore());
+        return otherRequest.getScore().compareTo(getScore());
     }
 
     public K getKey()
