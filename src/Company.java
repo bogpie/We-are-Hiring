@@ -31,9 +31,9 @@ public class Company
         {
             if (iterated == department)
             {
-                departments.remove(department);
+                //departments.remove(department);
                 department.add(employee);
-                departments.add(department);
+                //departments.add(department);
                 return;
             }
         }
@@ -45,9 +45,9 @@ public class Company
         {
             if (iterated.getEmployees().contains(employee))
             {
-                departments.remove(iterated);
+                //departments.remove(iterated);
                 iterated.remove(employee);
-                departments.add(iterated);
+                //departments.add(iterated);
             }
         }
     }
@@ -70,9 +70,9 @@ public class Company
         {
             if(department.equals(source))
             {
-                departments.remove(source);
+                //departments.remove(source);
                 employees.addAll(source.getEmployees());
-                jobs.addAll(source.getJobs());
+                //jobs.addAll(source.getJobs());
             }
         }
 
@@ -80,12 +80,12 @@ public class Company
         {
             if(department.equals(destination))
             {
-                departments.remove(destination);
+                //departments.remove(destination);
                 employees.addAll(destination.getEmployees());
                 jobs.addAll(destination.getJobs());
                 destination.setEmployees(employees);
                 destination.setJobs(jobs);
-                departments.add(destination);
+                //departments.add(destination);
             }
         }
     }
@@ -104,9 +104,9 @@ public class Company
         {
             if(department.equals(newDepartment))
             {
-                departments.remove(department);
+                //departments.remove(department);
                 department.add(employee);
-                departments.add(department);
+                //departments.add(department);
             }
         }
     }
@@ -135,8 +135,29 @@ public class Company
 
     public Recruiter getRecruiter(User user)
     {
-        // ????
-        return null;
+        Recruiter evaluator = null;
+        int maxDegree = -1;
+        Double maxRating = -1.0;
+
+        for (Recruiter recruiter : recruiters)
+        {
+            int degree = user.getDegreeInFriendship(recruiter);
+            if (degree > maxDegree)
+            {
+                evaluator = recruiter;
+                maxDegree = degree;
+                maxRating = recruiter.getRating();
+            }
+            else if (degree == maxDegree)
+            {
+                if (recruiter.getRating() > maxRating)
+                {
+                    evaluator = recruiter;
+                    maxRating = recruiter.getRating();
+                }
+            }
+        }
+        return evaluator;
     }
 
     public ArrayList<Job> getJobs()

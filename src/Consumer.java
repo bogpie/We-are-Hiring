@@ -18,7 +18,12 @@ public abstract class Consumer
 
     class Resume
     {
-        Information information;
+        private Information information;
+
+        public Information getInformation()
+        {
+            return information;
+        }
     }
 
     protected Consumer(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet)

@@ -46,37 +46,19 @@ public class Job
 
     public void apply(User user)
     {
-        ArrayList<Consumer> network = user.getNetwork();
         Company company = Application.getInstance().getCompany(companyName);
-        ArrayList<Recruiter> recruiters = company.getRecruiters();
-
-        int maxDegree = -1;
-        Double maxRating = -1.0;
-        Recruiter evaluator = null;
-
-        for (Recruiter recruiter : recruiters)
-        {
-            int degree = user.getDegreeInFriendship(recruiter);
-            if (degree > maxDegree)
-            {
-                evaluator = recruiter;
-                maxDegree = degree;
-                maxRating = recruiter.getRating();
-            }
-            else if (degree == maxDegree)
-            {
-                if (recruiter.getRating() > maxRating)
-                {
-                    evaluator = recruiter;
-                    maxRating = recruiter.getRating();
-                }
-            }
-        }
+        Recruiter evaluator = company.getRecruiter(user);
 
         if (evaluator != null)
             evaluator.evaluate(this, user);
     }
 
+    public boolean meetsRequirement(User user)
+    {
+        if(!getExperienceConstraint().meetsRequirement(user.getTotalExperience())) return false;
+        if(!getGraduationConstraint().meetsRequirement(user.getTotalExperience())) return false;
+        return getMeanConstraint().meetsRequirement(user.meanGPA());
+    }
 
     public int getNoPositions()
     {

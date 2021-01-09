@@ -11,7 +11,7 @@ public class User extends Consumer
 
     public Employee convert()
     {
-        return null;
+        return new Employee(getResume(),getNetwork(),getEducationSet(),getExperienceSet(),"",0.0);
     }
 
     public Double getTotalScore()

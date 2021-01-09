@@ -1,3 +1,4 @@
+import java.nio.channels.OverlappingFileLockException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -22,37 +23,58 @@ public class Manager extends Employee
 
     public void process(Job job)
     {
+        Application application = Application.getInstance();
+        Company desiredCompany = application.getCompany(getCompanyName());
+
         for (Request<Job, Consumer> request : requests)
         {
-            if (job.getNoPositions() == 0) break;
-            if (!request.getKey().getJobName().equals(job.getJobName())) continue;
-
-            Application application = Application.getInstance();
-            ArrayList<User> users = application.getUsers();
-
             User user = (User) request.getValue1();
 
-            // previously unemployed
+            if (job.getNoPositions() == 0) break;
+            if (!request.getKey().getJobName().equals(job.getJobName())) continue;
+            if(!job.meetsRequirement(user)) continue;
+
+            ArrayList<User> users = application.getUsers();
+            ArrayList<Company> companies = application.getCompanies();
+
+            /// previously unemployed
             if (users.contains(user))
             {
                 users.remove(user);
                 application.setUsers(users);
             }
 
-            // previously employed to another company
-            for (Company company : application.getCompanies())
+            /// previously employed to another company
+            Employee employee = user.convert();
+            for (Company company : companies)
             {
-                /// ???
-                break;
+                if(company.contains(employee))
+                {
+                    company.remove(employee);
+                    break;
+                }
             }
 
-            Employee employee = new Employee();
-            employee = user.convert();
+            for(Department department : desiredCompany.getDepartments())
+            {
+                if(department.getJobs().contains(job))
+                {
+                    department.add(employee);
+                    break;
+                }
+            }
 
-            // adaugat in departamentul specific jobului
             job.setNoPositions(job.getNoPositions() - 1);
         }
-
     }
 
+    public void setRequests(TreeSet<Request<Job, Consumer>> requests)
+    {
+        this.requests = requests;
+    }
+
+    public TreeSet<Request<Job, Consumer>> getRequests()
+    {
+        return requests;
+    }
 }

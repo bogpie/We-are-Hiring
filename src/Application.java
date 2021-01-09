@@ -17,8 +17,8 @@ public class Application
 
     private Application()
     {
-        this.companies = new ArrayList<>();
-        this.users = new ArrayList<>();
+        companies = new ArrayList<>();
+        users = new ArrayList<>();
     }
 
     public void add(Company company)
@@ -63,7 +63,7 @@ public class Application
     public ArrayList<Job> getJobs(List<String> companies)
     {
         ArrayList<Job> jobs = new ArrayList<>();
-        for (Company company : this.companies)
+        for (Company company : getCompanies())
         {
             jobs.addAll(company.getJobs());
         }
@@ -77,7 +77,7 @@ public class Application
 
     public Company getCompany(String name)
     {
-        for (Company company : this.companies)
+        for (Company company : getCompanies())
         {
             if (company.getCompanyName().equals(name))
             {
@@ -97,4 +97,8 @@ public class Application
         this.users = users;
     }
 
+    public void setCompanies(ArrayList<Company> companies)
+    {
+        this.companies = companies;
+    }
 }
