@@ -4,17 +4,17 @@ import java.time.LocalDate;
 
 public class Education implements Comparable<Education>
 {
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final String institution;
-    private final String level;
-    private final Double grade;
+    private String level;
+    private String name;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Double grade;
 
     public Education(LocalDate start, LocalDate end, String institution, String level, Double grade) throws InvalidDatesException
     {
         this.level = level;
         this.grade = grade;
-        this.institution = institution;
+        this.name = institution;
         if(start.compareTo(end) > 0)
         {
             throw new InvalidDatesException();
@@ -46,9 +46,9 @@ public class Education implements Comparable<Education>
         return startDate;
     }
 
-    public String getInstitution()
+    public String getName()
     {
-        return institution;
+        return name;
     }
 
     public String getLevel()
@@ -64,5 +64,30 @@ public class Education implements Comparable<Education>
     public LocalDate getEndDate()
     {
         return endDate;
+    }
+
+    public void setStartDate(LocalDate startDate)
+    {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate)
+    {
+        this.endDate = endDate;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setLevel(String level)
+    {
+        this.level = level;
+    }
+
+    public void setGrade(Double grade)
+    {
+        this.grade = grade;
     }
 }

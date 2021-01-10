@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Job
 {
     private final String jobName;
-    private final String companyName;
+    private final String company;
     private final boolean isOpen;
     private final Constraint graduationConstraint;
     private final Constraint experienceConstraint;
@@ -36,7 +36,7 @@ public class Job
     public Job(String jobName, String companyName, boolean isOpen, Constraint graduationConstraint, Constraint experienceConstraint, Constraint meanConstraint, int noPositions)
     {
         this.jobName = jobName;
-        this.companyName = companyName;
+        this.company = companyName;
         this.isOpen = isOpen;
         this.graduationConstraint = graduationConstraint;
         this.experienceConstraint = experienceConstraint;
@@ -46,7 +46,7 @@ public class Job
 
     public void apply(User user)
     {
-        Company company = Application.getInstance().getCompany(companyName);
+        Company company = Application.getInstance().getCompany(this.company);
         Recruiter evaluator = company.getRecruiter(user);
 
         if (evaluator != null)
@@ -70,9 +70,9 @@ public class Job
         return jobName;
     }
 
-    public String getCompanyName()
+    public String getCompany()
     {
-        return companyName;
+        return company;
     }
 
     public void setNoPositions(int noPositions)

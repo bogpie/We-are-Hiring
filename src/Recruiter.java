@@ -20,7 +20,7 @@ public class Recruiter extends Employee
     {
         Double totalScore = user.getTotalScore();
         Request<Job, Consumer> request = new Request<>(job, user, this, totalScore);
-        Application.getInstance().getCompany(job.getCompanyName()).getManager().getRequests().add(request);
+        Application.getInstance().getCompany(job.getCompany()).getManager().getRequests().add(request);
         return (int) (getRating() * totalScore);
     }
 

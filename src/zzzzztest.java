@@ -74,7 +74,7 @@ class MethodsClass
     }
 }
 
-class Test
+class UnrelatedTest
 {
     public static void mains(String[] args)
     {

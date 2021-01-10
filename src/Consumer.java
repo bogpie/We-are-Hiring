@@ -16,10 +16,9 @@ public abstract class Consumer
         experienceSet = new TreeSet<>();
     }
 
-    class Resume
+    static class Resume
     {
         private Information information;
-
         public Information getInformation()
         {
             return information;
@@ -86,7 +85,7 @@ public abstract class Consumer
         Period totalPeriod = Period.ZERO;
         for (Experience experience : experienceSet)
         {
-            Period period = Period.between(experience.getStart(), experience.getEnd());
+            Period period = Period.between(experience.getStartDate(), experience.getEndDate());
             totalPeriod.plus(period);
         }
 

@@ -4,43 +4,45 @@ import java.time.LocalDate;
 
 public class Experience implements Comparable<Experience>
 {
-    private final LocalDate start;
-    private final LocalDate end;
-    private final String position;
-    private final Company company;
+    private String company;
+    private String position;
+    private final String department;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Experience(LocalDate start, LocalDate end, String position, Company company) throws InvalidDatesException
+    public Experience(LocalDate startDate, LocalDate endDate, String position, String company, String department) throws InvalidDatesException
     {
         this.company = company;
         this.position = position;
-        if (start.compareTo(end) > 0)
+        this.department = department;
+        if (startDate.compareTo(endDate) > 0)
         {
             throw new InvalidDatesException();
         }
-        this.start = start;
-        this.end = end;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public int compareTo(Experience otherExperience)
     {
         //Experience otherExperience = (Experience) other;
-        if (otherExperience.end == null || end == null)
+        if (otherExperience.endDate == null || endDate == null)
         {
-            return company.getCompanyName().compareTo(otherExperience.company.getCompanyName());
+            return company.compareTo(otherExperience.company);
         }
 
-        return otherExperience.end.compareTo(end);
+        return otherExperience.endDate.compareTo(endDate);
     }
 
-    public LocalDate getStart()
+    public LocalDate getStartDate()
     {
-        return start;
+        return startDate;
     }
 
-    public LocalDate getEnd()
+    public LocalDate getEndDate()
     {
-        return end;
+        return endDate;
     }
 
     public String getPosition()
@@ -48,8 +50,33 @@ public class Experience implements Comparable<Experience>
         return position;
     }
 
-    public Company getCompany()
+    public String getCompany()
     {
         return company;
+    }
+
+    public String getDepartment()
+    {
+        return department;
+    }
+
+    public void setStartDate(LocalDate startDate)
+    {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate)
+    {
+        this.endDate = endDate;
+    }
+
+    public void setPosition(String position)
+    {
+        this.position = position;
+    }
+
+    public void setCompany(String company)
+    {
+        this.company = company;
     }
 }
