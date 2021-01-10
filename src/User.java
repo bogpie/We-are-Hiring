@@ -2,11 +2,13 @@ import java.util.*;
 
 public class User extends Consumer
 {
-    private ArrayList<String> companyNames;
+    private ArrayList<String> interestedCompanies;
 
-    protected User(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet)
+
+    protected User(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet,ArrayList<String> interestedCompanies)
     {
         super(resume, network, educationSet, experienceSet);
+        this.interestedCompanies = interestedCompanies;
     }
 
     public Employee convert()
@@ -21,8 +23,13 @@ public class User extends Consumer
         return totalExperience * 1.5 + meanGPA;
     }
 
-    public ArrayList<String> getCompanyNames()
+    public ArrayList<String> getInterestedCompanies()
     {
-        return companyNames;
+        return interestedCompanies;
+    }
+
+    public void setInterestedCompanies(ArrayList<String> interestedCompanies)
+    {
+        this.interestedCompanies = interestedCompanies;
     }
 }

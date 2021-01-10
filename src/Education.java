@@ -1,4 +1,5 @@
 import Exceptions.InvalidDatesException;
+import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
 
@@ -6,21 +7,26 @@ public class Education implements Comparable<Education>
 {
     private String level;
     private String name;
+
+    @SerializedName("start_date")
     private LocalDate startDate;
+
+    @SerializedName("end_date")
     private LocalDate endDate;
+
     private Double grade;
 
-    public Education(LocalDate start, LocalDate end, String institution, String level, Double grade) throws InvalidDatesException
+    public Education(LocalDate startDate, LocalDate endDate, String institution, String level, Double grade) throws InvalidDatesException
     {
         this.level = level;
         this.grade = grade;
         this.name = institution;
-        if(start.compareTo(end) > 0)
+        if(endDate!=null && startDate.compareTo(endDate) > 0)
         {
             throw new InvalidDatesException();
         }
-        this.startDate = start;
-        this.endDate = end;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public int compareTo(Education otherEducation)

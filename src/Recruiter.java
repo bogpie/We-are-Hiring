@@ -11,10 +11,6 @@ public class Recruiter extends Employee
         setRating(5.0);
     }
 
-    protected Recruiter()
-    {
-        super();
-    }
 
     public int evaluate(Job job, User user)
     {

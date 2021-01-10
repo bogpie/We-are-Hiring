@@ -8,9 +8,9 @@ public abstract class Consumer
     private final TreeSet<Education> educationSet; // comparator in education class
     private final TreeSet<Experience> experienceSet;
 
-    public Consumer()
+    public Consumer(Information information)
     {
-        resume = new Resume();
+        resume = new Resume(information);
         network = new ArrayList<>();
         educationSet = new TreeSet<>();
         experienceSet = new TreeSet<>();
@@ -18,13 +18,24 @@ public abstract class Consumer
 
     static class Resume
     {
+
         private Information information;
+        public Resume(Information information)
+        {
+            this.information = information;
+        }
+
         public Information getInformation()
         {
             return information;
         }
-    }
 
+        public void setInformation(Information information)
+        {
+            this.information = information;
+        }
+
+    }
     protected Consumer(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet)
     {
         this.resume = resume;
@@ -73,6 +84,17 @@ public abstract class Consumer
         }
 
         return degree;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Consumer{\n" +
+                "resume=" + resume +
+                ", \nnetwork=" + network +
+                ", \neducationSet=" + educationSet +
+                ", \nexperienceSet=" + experienceSet +
+                "\n}";
     }
 
     public void remove(Consumer consumer)

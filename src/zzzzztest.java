@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Locale;
 
+//testing simple object operations (whether objects are passed by refference or by value)
 
 class Basket
 {
@@ -71,12 +71,19 @@ class MethodsClass
     {
         apples.add(new Apple("bad", "yellow"));
         apples.get(0).setTaste(apples.get(0).getTaste().toUpperCase());
+
+        String taste = apples.get(0).getTaste();
+        taste = taste.toLowerCase();
+        System.out.println(taste);
+        Apple apple = apples.get(0);
+        apple.setTaste("good");
+
     }
 }
 
 class UnrelatedTest
 {
-    public static void mains(String[] args)
+    public static void main(String[] args)
     {
         Basket basket = new Basket();
         ArrayList<Apple> apples = basket.getApples();

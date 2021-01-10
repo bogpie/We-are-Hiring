@@ -15,7 +15,7 @@ public class Experience implements Comparable<Experience>
         this.company = company;
         this.position = position;
         this.department = department;
-        if (startDate.compareTo(endDate) > 0)
+        if (endDate!=null && startDate.compareTo(endDate) > 0)
         {
             throw new InvalidDatesException();
         }

@@ -12,10 +12,6 @@ public class Employee extends Consumer
         this.companyName = companyName;
         this.salary = salary;
     }
-    public Employee()
-    {
-        super();
-    }
 
     public String getCompanyName()
     {
@@ -26,4 +22,5 @@ public class Employee extends Consumer
     {
         return salary;
     }
+
 }
