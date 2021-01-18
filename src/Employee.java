@@ -3,12 +3,12 @@ import java.util.TreeSet;
 
 public class Employee extends Consumer
 {
-    private String companyName;
-    private Double salary;
+    private final String companyName;
+    private final Double salary;
 
-    protected Employee(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet, String companyName, Double salary)
+    protected Employee(Resume resume, ArrayList<Consumer> network, String companyName, Double salary)
     {
-        super(resume, network, educationSet, experienceSet);
+        super(resume, network);
         this.companyName = companyName;
         this.salary = salary;
     }
@@ -23,4 +23,14 @@ public class Employee extends Consumer
         return salary;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Employee{" +
+                "resume=" + resume +
+                ", network=" + network +
+                ", companyName='" + companyName + '\'' +
+                ", salary=" + salary +
+                '}';
+    }
 }

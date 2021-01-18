@@ -26,6 +26,11 @@ public class Information
         this.languagesLevel = languagesLevel;
     }
 
+    public Information()
+    {
+
+    }
+
     public String getFamilyName()
     {
         return familyName;

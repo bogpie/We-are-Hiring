@@ -1,28 +1,83 @@
+import Exceptions.ResumeIncompleteException;
+
 import java.time.Period;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 public abstract class Consumer
 {
-    private final Resume resume;
-    private final ArrayList<Consumer> network;
-    private final TreeSet<Education> educationSet; // comparator in education class
-    private final TreeSet<Experience> experienceSet;
+    Resume resume;
+    ArrayList<Consumer> network;
 
-    public Consumer(Information information)
+    public Consumer(Resume resume, ArrayList<Consumer> network)
     {
-        resume = new Resume(information);
-        network = new ArrayList<>();
-        educationSet = new TreeSet<>();
-        experienceSet = new TreeSet<>();
+        this.resume = resume;
+        this.network = network;
     }
 
-    static class Resume
+    @Override
+    public String toString()
     {
+        return "Consumer{" +
+                "resume=" + resume +
+                ", network=" + network +
+                '}';
+    }
 
+    public static class Resume
+    {
         private Information information;
-        public Resume(Information information)
+        private TreeSet<Education> educationSet;
+        private TreeSet<Experience> experienceSet;
+
+        private Resume(ResumeBuilder builder)
         {
-            this.information = information;
+            this.information = builder.information;
+            this.educationSet = builder.educationSet;
+            this.experienceSet = builder.experienceSet;
+        }
+
+        @Override
+        public String toString()
+        {
+            return  "\n" + getInformation().getGivenName() + " " + getInformation().getFamilyName() + "\n";
+        }
+
+        public static class ResumeBuilder
+        {
+
+            private final Information information;
+            private TreeSet<Education> educationSet;
+            private TreeSet<Experience> experienceSet;
+
+            public ResumeBuilder(Information information)
+            {
+                this.information = information;
+            }
+
+            public ResumeBuilder educationSet(TreeSet<Education> educationSet)
+            {
+                this.educationSet = educationSet;
+                return this;
+            }
+
+            public ResumeBuilder experienceSet(TreeSet<Experience> experienceSet)
+            {
+                this.experienceSet = experienceSet;
+                return this;
+            }
+
+            public Resume build() throws ResumeIncompleteException
+            {
+                if (this.educationSet == null || information == null)
+                {
+                    throw new ResumeIncompleteException();
+                }
+                return new Resume(this);
+            }
+
         }
 
         public Information getInformation()
@@ -30,28 +85,27 @@ public abstract class Consumer
             return information;
         }
 
-        public void setInformation(Information information)
+        public TreeSet<Education> getEducationSet()
         {
-            this.information = information;
+            return educationSet;
         }
 
+        public TreeSet<Experience> getExperienceSet()
+        {
+            return experienceSet;
+        }
     }
-    protected Consumer(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet)
-    {
-        this.resume = resume;
-        this.network = network;
-        this.educationSet = educationSet;
-        this.experienceSet = experienceSet;
-    }
+
+
 
     public void add(Education education)
     {
-        educationSet.add(education);
+        resume.educationSet.add(education);
     }
 
     public void add(Experience experience)
     {
-        experienceSet.add(experience);
+        resume.experienceSet.add(experience);
     }
 
     public void add(Consumer consumer)
@@ -59,16 +113,20 @@ public abstract class Consumer
         network.add(consumer);
     }
 
+    public String getName()
+    {
+        return resume.information.getGivenName() + resume.information.getFamilyName();
+    }
+
     public int getDegreeInFriendship(Consumer consumer)
     {
-        LinkedList<Consumer> consumers = new LinkedList<>();
+        ArrayList<Consumer> consumers = new ArrayList<>();
         HashMap<Consumer, Boolean> isVisited = new HashMap<>();
         int degree = 0;
-
         consumers.add(this);
         while (!consumers.isEmpty())
         {
-            isVisited.put(consumers.getFirst(), true);
+            isVisited.put(consumers.get(0), true);
             for (Consumer friend : consumers)
             {
                 if (isVisited.get(friend)) continue;
@@ -78,23 +136,11 @@ public abstract class Consumer
                     return degree;
                 }
             }
-
-            consumers.remove(this);
+            consumers.remove(consumers.get(0));
             ++degree;
         }
 
         return degree;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Consumer{\n" +
-                "resume=" + resume +
-                ", \nnetwork=" + network +
-                ", \neducationSet=" + educationSet +
-                ", \nexperienceSet=" + experienceSet +
-                "\n}";
     }
 
     public void remove(Consumer consumer)
@@ -105,7 +151,7 @@ public abstract class Consumer
     public int getTotalExperience()
     {
         Period totalPeriod = Period.ZERO;
-        for (Experience experience : experienceSet)
+        for (Experience experience : resume.experienceSet)
         {
             Period period = Period.between(experience.getStartDate(), experience.getEndDate());
             totalPeriod.plus(period);
@@ -120,11 +166,11 @@ public abstract class Consumer
 
     public Integer getGraduationYear()
     {
-        if (educationSet.first().getEndDate() != null)
+        if (resume.educationSet.first().getEndDate() != null)
         {
-            return educationSet.first().getEndDate().getYear();
+            return resume.educationSet.first().getEndDate().getYear();
         }
-        Iterator<Education> it = educationSet.iterator();
+        Iterator<Education> it = resume.educationSet.iterator();
         if (it.hasNext())
         {
             return it.next().getEndDate().getYear();
@@ -135,11 +181,11 @@ public abstract class Consumer
     public Double meanGPA()
     {
         Double sumGPA = 0.0;
-        for (Education education : educationSet)
+        for (Education education : resume.educationSet)
         {
             sumGPA += education.getGrade();
         }
-        return sumGPA / educationSet.size();
+        return sumGPA / resume.educationSet.size();
     }
 
 
@@ -153,13 +199,16 @@ public abstract class Consumer
         return network;
     }
 
+
+    /*
     public TreeSet<Education> getEducationSet()
     {
-        return educationSet;
+        return resume.educationSet;
     }
 
     public TreeSet<Experience> getExperienceSet()
     {
-        return experienceSet;
+        return resume.experienceSet;
     }
+     */
 }

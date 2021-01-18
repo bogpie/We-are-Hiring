@@ -1,19 +1,35 @@
+import javax.management.Notification;
 import java.util.*;
 
-public class User extends Consumer
+public class User extends Consumer implements Observer
 {
     private ArrayList<String> interestedCompanies;
 
-
-    protected User(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet,ArrayList<String> interestedCompanies)
+    protected User(Resume resume, ArrayList<Consumer> network, ArrayList<String> interestedCompanies)
     {
-        super(resume, network, educationSet, experienceSet);
+        super(resume, network);
         this.interestedCompanies = interestedCompanies;
     }
 
     public Employee convert()
     {
-        return new Employee(getResume(),getNetwork(),getEducationSet(),getExperienceSet(),"",0.0);
+        return new Employee(getResume(), getNetwork(), "", 0.0);
+    }
+
+    @Override
+    public void update(Notification notification)
+    {
+        System.out.println("Notification for" + getName() + ": " + notification.getMessage());
+    }
+
+    @Override
+    public String toString()
+    {
+        return "User{" +
+                "resume=" + resume +
+                ", network=" + network +
+                ", interestedCompanies=" + interestedCompanies +
+                '}';
     }
 
     public Double getTotalScore()
@@ -32,4 +48,5 @@ public class User extends Consumer
     {
         this.interestedCompanies = interestedCompanies;
     }
+
 }

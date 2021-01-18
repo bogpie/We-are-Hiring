@@ -16,9 +16,9 @@ public class Manager extends Employee
 {
     private TreeSet<Request<Job, Consumer>> requests;
 
-    protected Manager(Resume resume, ArrayList<Consumer> network, TreeSet<Education> educationSet, TreeSet<Experience> experienceSet, String companyName, Double salary)
+    protected Manager(Resume resume, ArrayList<Consumer> network, String companyName, Double salary)
     {
-        super(resume, network, educationSet, experienceSet, companyName, salary);
+        super(resume, network, companyName, salary);
     }
 
     public void process(Job job)
@@ -66,6 +66,16 @@ public class Manager extends Employee
 
             job.setNoPositions(job.getNoPositions() - 1);
         }
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Manager{" +
+                "resume=" + resume +
+                ", network=" + network +
+                ", requests=" + requests +
+                '}';
     }
 
     public void setRequests(TreeSet<Request<Job, Consumer>> requests)

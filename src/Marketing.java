@@ -1,5 +1,12 @@
+import java.util.ArrayList;
+
 public class Marketing extends Department
 {
+    public Marketing(ArrayList<Employee> employees, ArrayList<Job> jobs)
+    {
+        super(employees, jobs);
+    }
+
     @Override
     public double getTotalSalaryBudget()
     {

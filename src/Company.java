@@ -1,11 +1,13 @@
+import javax.management.Notification;
 import java.util.ArrayList;
 
-public class Company
+public class Company implements Subject
 {
     private final String companyName;
     private final Manager manager;
     private final ArrayList<Department> departments;
     private final ArrayList<Recruiter> recruiters;
+    private ArrayList<User> applicants;
 
     public Company(String companyName, Manager manager, ArrayList<Department> departments, ArrayList<Recruiter> recruiters)
     {
@@ -64,11 +66,11 @@ public class Company
 
     public void move(Department source, Department destination)
     {
-        ArrayList <Employee> employees = new ArrayList<>();
-        ArrayList <Job> jobs = new ArrayList<>();
-        for(Department department : departments)
+        ArrayList<Employee> employees = new ArrayList<>();
+        ArrayList<Job> jobs = new ArrayList<>();
+        for (Department department : departments)
         {
-            if(department.equals(source))
+            if (department.equals(source))
             {
                 //departments.remove(source);
                 employees.addAll(source.getEmployees());
@@ -76,9 +78,9 @@ public class Company
             }
         }
 
-        for(Department department : departments)
+        for (Department department : departments)
         {
-            if(department.equals(destination))
+            if (department.equals(destination))
             {
                 //departments.remove(destination);
                 employees.addAll(destination.getEmployees());
@@ -100,9 +102,9 @@ public class Company
             }
         }
 
-        for (Department department:departments)
+        for (Department department : departments)
         {
-            if(department.equals(newDepartment))
+            if (department.equals(newDepartment))
             {
                 //departments.remove(department);
                 department.add(employee);
@@ -163,12 +165,35 @@ public class Company
     public ArrayList<Job> getJobs()
     {
         ArrayList<Job> jobs = new ArrayList<>();
-        for(Department department : departments)
+        for (Department department : departments)
         {
             jobs.addAll(department.getJobs());
         }
         return jobs;
     }
+
+    @Override
+    public void addObserver(User user)
+    {
+        applicants.add(user);
+    }
+
+    @Override
+    public void removeObserver(User user)
+    {
+        applicants.remove(user);
+    }
+
+    @Override
+    public void notifyAllObservers()
+    {
+        Notification notification = new Notification("Type", this, 1, "Message");
+        for (User user : applicants)
+        {
+            user.update(notification);
+        }
+    }
+
 
     public String getCompanyName()
     {
@@ -188,5 +213,16 @@ public class Company
     public ArrayList<Recruiter> getRecruiters()
     {
         return recruiters;
+    }
+
+
+    public ArrayList<User> getApplicants()
+    {
+        return applicants;
+    }
+
+    public void setApplicants(ArrayList<User> applicants)
+    {
+        this.applicants = applicants;
     }
 }

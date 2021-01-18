@@ -1,5 +1,12 @@
+import java.util.ArrayList;
+
 public class IT extends Department
 {
+    public IT(ArrayList<Employee> employees, ArrayList<Job> jobs)
+    {
+        super(employees, jobs);
+    }
+
     @Override
     public double getTotalSalaryBudget()
     {

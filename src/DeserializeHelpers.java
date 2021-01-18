@@ -1,8 +1,10 @@
 import Exceptions.InvalidDatesException;
+import Exceptions.ResumeIncompleteException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -93,4 +95,33 @@ public class DeserializeHelpers
         return educationSet;
     }
 
+    public static ParsedInfo deserializeConsumer(JsonObject consumerObject) throws InvalidDatesException, ResumeIncompleteException
+    {
+        Information information = DeserializeHelpers.deserializeInformation(consumerObject);
+        TreeSet <Education> educationSet = DeserializeHelpers.deserializeEducationSet(consumerObject);
+        TreeSet <Experience> experienceSet = DeserializeHelpers.deserializeExperienceSet(consumerObject);
+
+        Consumer.Resume resume = new Consumer.Resume.ResumeBuilder(information)
+                .educationSet(educationSet)
+                .experienceSet(experienceSet)
+                .build();
+
+        double salary = 0.0;
+        if (consumerObject.has("salary"))
+        {
+            salary = consumerObject.get("salary").getAsDouble();
+        }
+
+        ArrayList<String> interestedCompanies = new ArrayList<>();
+        if (consumerObject.has("interested_companies"))
+        {
+            JsonArray interestedArray = consumerObject.getAsJsonArray("interested_companies");
+            for (JsonElement interestedElement : interestedArray)
+            {
+                interestedCompanies.add(interestedElement.getAsString());
+            }
+        }
+
+        return new ParsedInfo(resume,salary,interestedCompanies);
+    }
 }
