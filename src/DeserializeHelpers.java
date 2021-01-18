@@ -98,8 +98,14 @@ public class DeserializeHelpers
     public static ParsedInfo deserializeConsumer(JsonObject consumerObject) throws InvalidDatesException, ResumeIncompleteException
     {
         Information information = DeserializeHelpers.deserializeInformation(consumerObject);
-        TreeSet <Education> educationSet = DeserializeHelpers.deserializeEducationSet(consumerObject);
-        TreeSet <Experience> experienceSet = DeserializeHelpers.deserializeExperienceSet(consumerObject);
+
+        if (information.getGivenName().equals("Molly"))
+        {
+            int breakpoint = 0;
+        }
+
+        TreeSet<Education> educationSet = DeserializeHelpers.deserializeEducationSet(consumerObject);
+        TreeSet<Experience> experienceSet = DeserializeHelpers.deserializeExperienceSet(consumerObject);
 
         Consumer.Resume resume = new Consumer.Resume.ResumeBuilder(information)
                 .educationSet(educationSet)
@@ -122,6 +128,6 @@ public class DeserializeHelpers
             }
         }
 
-        return new ParsedInfo(resume,salary,interestedCompanies);
+        return new ParsedInfo(resume, salary, interestedCompanies);
     }
 }

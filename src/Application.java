@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 //singleton
@@ -9,16 +10,23 @@ public class Application
     private ArrayList<User> users;
     private static Application instance = null;
 
+    private ArrayList<Employee> employees;
+    private ArrayList<Recruiter> recruiters;
+    private ArrayList<Manager> managers;
+    private HashMap<String,Consumer> codeToConsumer;
+
     private Application(ArrayList<Company> companies, ArrayList<User> users)
     {
         this.companies = companies;
         this.users = users;
+        codeToConsumer = new HashMap<>();
     }
 
     private Application()
     {
         companies = new ArrayList<>();
         users = new ArrayList<>();
+        codeToConsumer = new HashMap<>();
     }
 
     public void add(Company company)
@@ -100,5 +108,45 @@ public class Application
     public void setCompanies(ArrayList<Company> companies)
     {
         this.companies = companies;
+    }
+
+    public ArrayList<Employee> getEmployees()
+    {
+        return employees;
+    }
+
+    public void setEmployees(ArrayList<Employee> employees)
+    {
+        this.employees = employees;
+    }
+
+    public ArrayList<Recruiter> getRecruiters()
+    {
+        return recruiters;
+    }
+
+    public void setRecruiters(ArrayList<Recruiter> recruiters)
+    {
+        this.recruiters = recruiters;
+    }
+
+    public ArrayList<Manager> getManagers()
+    {
+        return managers;
+    }
+
+    public void setManagers(ArrayList<Manager> managers)
+    {
+        this.managers = managers;
+    }
+
+    public void setCodeToConsumer(HashMap<String, Consumer> codeToConsumer)
+    {
+        this.codeToConsumer = codeToConsumer;
+    }
+
+    public HashMap<String, Consumer> getCodeToConsumer()
+    {
+        return codeToConsumer;
     }
 }

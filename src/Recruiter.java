@@ -23,11 +23,15 @@ public class Recruiter extends Employee
     @Override
     public String toString()
     {
+        return "Recruiter: " + super.toString();
+        /*
         return "Recruiter{" +
                 "resume=" + resume +
-                ", network=" + network +
+                ", network=" + getNetwork() +
                 ", rating=" + rating +
                 '}';
+
+         */
     }
 
     public Double getRating()

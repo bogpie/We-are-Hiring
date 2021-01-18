@@ -6,14 +6,14 @@ public class DepartmentFactory
     {
     }
 
-    public static Department factory(String type, String name, ArrayList<Employee> employees, ArrayList<Job> jobs)
+    public static Department factory(String type)
     {
         return switch (type)
                 {
-                    case "IT" -> new IT(employees, jobs);
-                    case "Management" -> new Management(employees, jobs);
-                    case "Marketing" -> new Marketing(employees, jobs);
-                    case "Finance" -> new Finance(employees, jobs);
+                    case "IT" -> new IT();
+                    case "Management" -> new Management();
+                    case "Marketing" -> new Marketing();
+                    case "Finance" -> new Finance();
                     default -> null;
                 };
     }

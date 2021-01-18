@@ -71,11 +71,8 @@ public class Manager extends Employee
     @Override
     public String toString()
     {
-        return "Manager{" +
-                "resume=" + resume +
-                ", network=" + network +
-                ", requests=" + requests +
-                '}';
+        return "Manager: " + super.toString();
+
     }
 
     public void setRequests(TreeSet<Request<Job, Consumer>> requests)

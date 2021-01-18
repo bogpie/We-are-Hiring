@@ -40,6 +40,10 @@ public class Information
     {
         return givenName;
     }
+    public String getName()
+    {
+        return givenName + " " + familyName;
+    }
 
     public String getEmail()
     {

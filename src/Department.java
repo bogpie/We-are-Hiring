@@ -5,6 +5,12 @@ public abstract class Department
     private ArrayList<Employee> employees;
     private ArrayList<Job> jobs;
 
+    public Department()
+    {
+        employees = new ArrayList<>();
+        jobs = new ArrayList<>();
+    }
+
     public Department(ArrayList<Employee> employees, ArrayList<Job> jobs)
     {
         this.employees = employees;

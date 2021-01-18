@@ -7,6 +7,11 @@ public class Finance extends Department
         super(employees, jobs);
     }
 
+    public Finance()
+    {
+        super();
+    }
+
     @Override
     public double getTotalSalaryBudget()
     {

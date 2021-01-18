@@ -1,0 +1,86 @@
+{
+  "companies": [
+    {
+      "name": "Amazon",
+      "manager": "Jeff Bezos",
+      "employees": [
+        {
+          "name": "Harmony Lorinda",
+          "department": "IT",
+          "code": "E1"
+        },
+        {
+          "name": "Shana Addy",
+          "department": "Management",
+          "code": "E2"
+        },
+        {
+          "name": "Leyla Stacy",
+          "department": "Marketing",
+          "code": "E3"
+        },
+        {
+          "name": "Jarred Egbert",
+          "department": "Finance",
+          "code": "E4"
+        },
+        {
+          "name": "Bethney Kiara",
+          "department": "Marketing",
+          "code": "E5"
+        },
+        {
+          "name": "Darrell Lillie",
+          "department": "Recruiter(IT)",
+          "code": "R3"
+        },
+        {
+          "name": "Damian Bodhi",
+          "department": "Recruiter(IT)",
+          "code": "R4"
+        }
+      ]
+    },
+    {
+      "name": "Google",
+      "manager": "Sundar Pichai",
+      "employees": [
+        {
+          "name": "Rolland Lyla",
+          "department": "IT",
+          "code": "E6"
+        },
+        {
+          "name": "Steward Goodwin",
+          "department": "Management",
+          "code": "E7"
+        },
+        {
+          "name": "Molly Rylie",
+          "department": "Marketing",
+          "code": "E8"
+        },
+        {
+          "name": "Morley Denise",
+          "department": "Finance",
+          "code": "E9"
+        },
+        {
+          "name": "Bryson Reenie",
+          "department": "Marketing",
+          "code": "E10"
+        },
+        {
+          "name": "Jonie Phillip",
+          "department": "Recruiter(IT)",
+          "code": "R1"
+        },
+        {
+          "name": "Janine Woody",
+          "department": "Recruiter(IT)",
+          "code": "R2"
+        }
+      ]
+    }
+  ]
+}

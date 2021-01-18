@@ -25,11 +25,8 @@ public class User extends Consumer implements Observer
     @Override
     public String toString()
     {
-        return "User{" +
-                "resume=" + resume +
-                ", network=" + network +
-                ", interestedCompanies=" + interestedCompanies +
-                '}';
+        return "User: " + super.toString();
+
     }
 
     public Double getTotalScore()

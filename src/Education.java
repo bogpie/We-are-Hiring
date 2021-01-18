@@ -37,7 +37,7 @@ public class Education implements Comparable<Education>
         {
             return otherEducation.startDate.compareTo(startDate);
         }
-        if (otherEducation.endDate == endDate)
+        else if (otherEducation.endDate == endDate)
         {
             return otherEducation.grade.compareTo(grade);
         }

@@ -9,7 +9,8 @@ import java.util.TreeSet;
 public abstract class Consumer
 {
     Resume resume;
-    ArrayList<Consumer> network;
+    private ArrayList<Consumer> network;
+    private String code;
 
     public Consumer(Resume resume, ArrayList<Consumer> network)
     {
@@ -17,20 +18,33 @@ public abstract class Consumer
         this.network = network;
     }
 
+    public Consumer()
+    {
+        network = new ArrayList<>();
+    }
+
     @Override
     public String toString()
     {
-        return "Consumer{" +
-                "resume=" + resume +
-                ", network=" + network +
-                '}';
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(getName()).append(" - " + getCode() + ", network: ");
+
+        for (Consumer consumer : network)
+        {
+            builder.append(consumer.getName()).append(" - ");
+            builder.append(consumer.getCode() + ", ");
+        }
+
+        return builder.toString();
     }
 
     public static class Resume
     {
-        private Information information;
-        private TreeSet<Education> educationSet;
-        private TreeSet<Experience> experienceSet;
+
+        private final Information information;
+        private final TreeSet<Education> educationSet;
+        private final TreeSet<Experience> experienceSet;
 
         private Resume(ResumeBuilder builder)
         {
@@ -39,16 +53,33 @@ public abstract class Consumer
             this.experienceSet = builder.experienceSet;
         }
 
+        public String getCurrentCompany()
+        {
+            if (information.getGivenName().equals("Molly"))
+            {
+                int breakPoint = 0;
+            }
+            for (Experience experience : experienceSet)
+            {
+                if (experience.getEndDate() == null)
+                {
+                    return experience.getCompany();
+                }
+            }
+            return null;
+        }
+
         @Override
         public String toString()
         {
-            return  "\n" + getInformation().getGivenName() + " " + getInformation().getFamilyName() + "\n";
+            return getInformation().getName();
         }
 
         public static class ResumeBuilder
         {
 
             private final Information information;
+
             private TreeSet<Education> educationSet;
             private TreeSet<Experience> experienceSet;
 
@@ -78,6 +109,7 @@ public abstract class Consumer
                 return new Resume(this);
             }
 
+
         }
 
         public Information getInformation()
@@ -94,8 +126,8 @@ public abstract class Consumer
         {
             return experienceSet;
         }
-    }
 
+    }
 
 
     public void add(Education education)
@@ -115,7 +147,7 @@ public abstract class Consumer
 
     public String getName()
     {
-        return resume.information.getGivenName() + resume.information.getFamilyName();
+        return resume.information.getGivenName() + " " + resume.information.getFamilyName();
     }
 
     public int getDegreeInFriendship(Consumer consumer)
@@ -127,7 +159,7 @@ public abstract class Consumer
         while (!consumers.isEmpty())
         {
             isVisited.put(consumers.get(0), true);
-            for (Consumer friend : consumers)
+            for (Consumer friend : network)
             {
                 if (isVisited.get(friend)) continue;
 
@@ -200,15 +232,14 @@ public abstract class Consumer
     }
 
 
-    /*
-    public TreeSet<Education> getEducationSet()
+    public String getCode()
     {
-        return resume.educationSet;
+        return code;
     }
 
-    public TreeSet<Experience> getExperienceSet()
+    public void setCode(String code)
     {
-        return resume.experienceSet;
+        this.code = code;
     }
-     */
+
 }

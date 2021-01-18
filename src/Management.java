@@ -7,6 +7,12 @@ public class Management extends Department
         super(employees, jobs);
     }
 
+    public Management()
+    {
+
+        super();
+    }
+
     @Override
     public double getTotalSalaryBudget()
     {

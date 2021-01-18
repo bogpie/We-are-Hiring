@@ -9,6 +9,14 @@ public class Company implements Subject
     private final ArrayList<Recruiter> recruiters;
     private ArrayList<User> applicants;
 
+    public Company(String companyName, Manager manager)
+    {
+        this.companyName = companyName;
+        this.manager = manager;
+        departments = new ArrayList<>();
+        recruiters = new ArrayList<>();
+    }
+
     public Company(String companyName, Manager manager, ArrayList<Department> departments, ArrayList<Recruiter> recruiters)
     {
         this.companyName = companyName;
@@ -25,6 +33,7 @@ public class Company implements Subject
     public void add(Recruiter recruiter)
     {
         recruiters.add(recruiter);
+
     }
 
     public void add(Employee employee, Department department)
@@ -194,6 +203,15 @@ public class Company implements Subject
         }
     }
 
+
+    @Override
+    public String toString()
+    {
+        return "Company{" +
+                "companyName='" + companyName + '\'' +
+                ", manager=" + manager +
+                "}\n";
+    }
 
     public String getCompanyName()
     {

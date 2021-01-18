@@ -7,6 +7,12 @@ public class Marketing extends Department
         super(employees, jobs);
     }
 
+    public Marketing()
+    {
+
+        super();
+    }
+
     @Override
     public double getTotalSalaryBudget()
     {
