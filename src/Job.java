@@ -6,22 +6,15 @@ public class Job
 {
     private final String name;
     private final String company;
-    private final boolean isOpen;
+    private boolean isOpen;
+
     private int noPositions;
     private Double salary;
-    //@SerializedName("graduation_constraint")
     private final Constraint graduationConstraint;
-    //@SerializedName("experience_constraint")
     private final Constraint experienceConstraint;
-    //@SerializedName("mean_constraint")
     private final Constraint meanConstraint;
-
     private ArrayList <User> candidates;
 
-    public boolean isOpen()
-    {
-        return isOpen;
-    }
 
     public Constraint getGraduationConstraint()
     {
@@ -55,15 +48,28 @@ public class Job
         Company company = Application.getInstance().getCompany(this.company);
         Recruiter evaluator = company.getRecruiter(user);
 
+        int formula = 0;
+
         if (evaluator != null)
-            evaluator.evaluate(this, user);
+            formula = evaluator.evaluate(this, user);
+
     }
 
     public boolean meetsRequirement(User user)
     {
         if(!getExperienceConstraint().meetsRequirement(user.getTotalExperience())) return false;
-        if(!getGraduationConstraint().meetsRequirement(user.getTotalExperience())) return false;
+        if(!getGraduationConstraint().meetsRequirement(user.getGraduationYear())) return false;
         return getMeanConstraint().meetsRequirement(user.meanGPA());
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Job{" +
+                "name='" + name + '\'' +
+                ", company='" + company + '\'' +
+                ", noPositions=" + noPositions +
+                '}';
     }
 
     public int getNoPositions()
@@ -86,13 +92,13 @@ public class Job
         this.noPositions = noPositions;
     }
 
-    @Override
-    public String toString()
+    public boolean getOpen()
     {
-        return "Job{" +
-                "name='" + name + '\'' +
-                ", company='" + company + '\'' +
-                ", noPositions=" + noPositions +
-                '}';
+        return isOpen;
+    }
+
+    public void setOpen(boolean open)
+    {
+        isOpen = open;
     }
 }

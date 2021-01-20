@@ -13,7 +13,9 @@ public class User extends Consumer implements Observer
 
     public Employee convert()
     {
-        return new Employee(getResume(), getNetwork(), "", 0.0);
+        Employee employee = new Employee(getResume(), getNetwork(), "", 0.0);
+        employee.setCode(getCode());
+        return employee;
     }
 
     @Override

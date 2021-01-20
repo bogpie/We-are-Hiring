@@ -1,16 +1,23 @@
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 public class Employee extends Consumer
 {
     private String companyName;
+
     private Double salary;
 
-    protected Employee(Resume resume, ArrayList<Consumer> network, String companyName, Double salary)
+
+    public Employee(Resume resume, String companyName, Double salary)
     {
         super(resume);
         this.companyName = companyName;
         this.salary = salary;
+    }
+
+    public Employee(Resume resume, ArrayList<Consumer> network, String companyName, Double salary)
+    {
+        this(resume, companyName, salary);
+        this.setNetwork(network);
     }
 
     public Employee()
@@ -30,6 +37,13 @@ public class Employee extends Consumer
     }
 
     @Override
+    public boolean equals(Object other)
+    {
+        if(getClass() != other.getClass()) return false;
+        return (((Employee) other).getName().equals(this.getName()));
+    }
+
+    @Override
     public String toString()
     {
         return "Employee at " + companyName + " : " + super.toString();
@@ -41,5 +55,10 @@ public class Employee extends Consumer
                 ", salary=" + getSalary() +
                 '}';
         */
+    }
+
+    public void setCompanyName(String companyName)
+    {
+        this.companyName = companyName;
     }
 }

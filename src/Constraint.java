@@ -23,6 +23,10 @@ public class Constraint
         {
             return value.doubleValue() >= minimum.doubleValue();
         }
+        if(value == null)
+        {
+            return false;
+        }
         return (value.doubleValue() >= minimum.doubleValue()) && (value.doubleValue() <= maximum.doubleValue());
     }
 

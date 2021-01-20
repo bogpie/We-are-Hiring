@@ -9,19 +9,25 @@ import java.util.TreeSet;
 public abstract class Consumer
 {
     private Resume resume;
-
     private ArrayList<Consumer> network;
-
     private String code;
+
+
+    public Consumer()
+    {
+        network = new ArrayList<>();
+    }
+
     public Consumer(Resume resume)
     {
         this();
         this.resume = resume;
     }
 
-    public Consumer()
+    public Consumer (Resume resume,ArrayList<Consumer> network)
     {
-        network = new ArrayList<>();
+        this.resume = resume;
+        this.network = network;
     }
 
     @Override
@@ -156,6 +162,7 @@ public abstract class Consumer
     {
         ArrayList<Consumer> consumers = new ArrayList<>();
         HashMap<Consumer, Boolean> isVisited = new HashMap<>();
+
         int degree = 0;
         consumers.add(this);
         while (!consumers.isEmpty())
@@ -163,11 +170,13 @@ public abstract class Consumer
             isVisited.put(consumers.get(0), true);
             for (Consumer friend : network)
             {
-                if (isVisited.get(friend)) continue;
-
-                if (friend.equals(consumer))
+                if(isVisited.get(friend) == null || !isVisited.get(friend))
                 {
-                    return degree;
+                    if (friend.equals(consumer))
+                    {
+                        return degree;
+                    }
+
                 }
             }
             consumers.remove(consumers.get(0));
@@ -188,12 +197,12 @@ public abstract class Consumer
         for (Experience experience : resume.experienceSet)
         {
             Period period = Period.between(experience.getStartDate(), experience.getEndDate());
-            totalPeriod.plus(period);
+            totalPeriod = totalPeriod.plus(period);
         }
 
-        int nrMonths = totalPeriod.getMonths();
-        int nrYears = nrMonths / 12;
-        if (nrMonths % 12 != 0) ++nrYears;
+        int noMonths = ((int) totalPeriod.toTotalMonths());
+        int nrYears = noMonths / 12;
+        if (noMonths % 12 != 0) ++nrYears;
         return nrYears;
     }
 

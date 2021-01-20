@@ -145,13 +145,23 @@ public class ParsedInfo
 
                 if (object.get("department").getAsString().equals("Recruiter(IT)"))
                 {
-                    ///todo add as employee
                     for (Recruiter iterated : Application.getInstance().getRecruiters())
                     {
                         if (iterated.getName().equals(name))
                         {
                             iterated.setCode(code);
                             Application.getInstance().getCodeToConsumer().put(code, iterated);
+                            Employee employee = new Employee(iterated.getResume(), iterated.getNetwork(), iterated.getCompanyName(), iterated.getSalary());
+                            employee.setCode(iterated.getCode());
+                            for (Department department : company.getDepartments())
+                            {
+                                if (department instanceof IT)
+                                {
+                                    department.add(employee);
+                                    break;
+                                }
+                            }
+                            company.add(iterated);
                             break;
                         }
                     }
@@ -165,10 +175,10 @@ public class ParsedInfo
                         if (iterated.getName().equals(name))
                         {
                             employee = iterated;
+                            employee.setCode(code);
                             break;
                         }
                     }
-                    employee.setCode(code);
                     Application.getInstance().getCodeToConsumer().put(code, employee);
                     switch (departmentName)
                     {
@@ -250,13 +260,13 @@ public class ParsedInfo
 
             Constraint graduationConstraint = gson.fromJson(object.get("graduation_constraint"), Constraint.class);
             Constraint experienceConstraint = gson.fromJson(object.get("experience_constraint"), Constraint.class);
-            Constraint meanConstraint = gson.fromJson(object.get("experience_constraint"), Constraint.class);
+            Constraint meanConstraint = gson.fromJson(object.get("mean_constraint"), Constraint.class);
 
             Job job = new Job(name, company, isOpen, graduationConstraint, experienceConstraint, meanConstraint, noPositions);
             ArrayList<Department> departments = Application.getInstance().getCompany(company).getDepartments();
-            for(Department department:departments)
+            for (Department department : departments)
             {
-                if(department instanceof IT)
+                if (department instanceof IT)
                 {
                     department.add(job);
                 }

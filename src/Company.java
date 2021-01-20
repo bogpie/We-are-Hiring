@@ -5,22 +5,22 @@ public class Company implements Subject
 {
     private final String companyName;
     private final Manager manager;
-    private final ArrayList<Department> departments;
-    private final ArrayList<Recruiter> recruiters;
+    private ArrayList<Department> departments;
+    private ArrayList<Recruiter> recruiters;
     private ArrayList<User> applicants;
 
     public Company(String companyName, Manager manager)
     {
         this.companyName = companyName;
         this.manager = manager;
+        applicants = new ArrayList<>();
         departments = new ArrayList<>();
         recruiters = new ArrayList<>();
     }
 
     public Company(String companyName, Manager manager, ArrayList<Department> departments, ArrayList<Recruiter> recruiters)
     {
-        this.companyName = companyName;
-        this.manager = manager;
+        this(companyName, manager);
         this.departments = departments;
         this.recruiters = recruiters;
     }
@@ -79,30 +79,12 @@ public class Company implements Subject
 
     public void move(Department source, Department destination)
     {
-        ArrayList<Employee> employees = new ArrayList<>();
-        ArrayList<Job> jobs = new ArrayList<>();
-        for (Department department : departments)
-        {
-            if (department.equals(source))
-            {
-                //departments.remove(source);
-                employees.addAll(source.getEmployees());
-                //jobs.addAll(source.getJobs());
-            }
-        }
 
-        for (Department department : departments)
-        {
-            if (department.equals(destination))
-            {
-                //departments.remove(destination);
-                employees.addAll(destination.getEmployees());
-                jobs.addAll(destination.getJobs());
-                destination.setEmployees(employees);
-                destination.setJobs(jobs);
-                //departments.add(destination);
-            }
-        }
+        ArrayList<Employee> employees = new ArrayList<>(source.getEmployees());
+        employees.addAll(destination.getEmployees());
+        ArrayList<Job> jobs = new ArrayList<>(destination.getJobs());
+        destination.setEmployees(employees);
+        destination.setJobs(jobs);
     }
 
     public void move(Employee employee, Department newDepartment)
@@ -114,16 +96,8 @@ public class Company implements Subject
                 department.remove(employee);
             }
         }
+        newDepartment.add(employee);
 
-        for (Department department : departments)
-        {
-            if (department.equals(newDepartment))
-            {
-                //departments.remove(department);
-                department.add(employee);
-                //departments.add(department);
-            }
-        }
     }
 
     public boolean contains(Department department)
@@ -135,9 +109,13 @@ public class Company implements Subject
     {
         for (Department department : departments)
         {
-            if (department.getEmployees().contains(employee))
+            if (department.getEmployees().contains(employee)) return true;
+            for (Employee iterated : department.getEmployees())
             {
-                return true;
+                if (iterated.equals(employee))
+                {
+                    return true;
+                }
             }
         }
         return false;

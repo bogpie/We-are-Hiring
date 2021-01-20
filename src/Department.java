@@ -54,4 +54,13 @@ public abstract class Department
     {
         this.jobs = jobs;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Department{" +
+                "employees=" + employees +
+                ", jobs=" + jobs +
+                '}';
+    }
 }
