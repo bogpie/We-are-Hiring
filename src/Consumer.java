@@ -8,14 +8,15 @@ import java.util.TreeSet;
 
 public abstract class Consumer
 {
-    Resume resume;
-    private ArrayList<Consumer> network;
-    private String code;
+    private Resume resume;
 
-    public Consumer(Resume resume, ArrayList<Consumer> network)
+    private ArrayList<Consumer> network;
+
+    private String code;
+    public Consumer(Resume resume)
     {
+        this();
         this.resume = resume;
-        this.network = network;
     }
 
     public Consumer()
@@ -28,14 +29,14 @@ public abstract class Consumer
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.append(getName()).append(" - " + getCode() + ", network: ");
+        builder.append(getName()).append(" - code = ").append(getCode()).append(", network = ");
 
         for (Consumer consumer : network)
         {
             builder.append(consumer.getName()).append(" - ");
-            builder.append(consumer.getCode() + ", ");
+            builder.append(consumer.getCode()).append(", ");
         }
-
+        builder.append("\n");
         return builder.toString();
     }
 
@@ -43,9 +44,9 @@ public abstract class Consumer
     {
 
         private final Information information;
+
         private final TreeSet<Education> educationSet;
         private final TreeSet<Experience> experienceSet;
-
         private Resume(ResumeBuilder builder)
         {
             this.information = builder.information;
@@ -79,6 +80,7 @@ public abstract class Consumer
         {
 
             private final Information information;
+
 
             private TreeSet<Education> educationSet;
             private TreeSet<Experience> experienceSet;
@@ -202,11 +204,11 @@ public abstract class Consumer
         {
             return resume.educationSet.first().getEndDate().getYear();
         }
-        Iterator<Education> it = resume.educationSet.iterator();
+        /*Iterator<Education> it = resume.educationSet.iterator();
         if (it.hasNext())
         {
             return it.next().getEndDate().getYear();
-        }
+        }*/
         return null;
     }
 
@@ -229,6 +231,10 @@ public abstract class Consumer
     public ArrayList<Consumer> getNetwork()
     {
         return network;
+    }
+    public void setNetwork(ArrayList<Consumer> network)
+    {
+        this.network = network;
     }
 
 

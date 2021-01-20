@@ -1,0 +1,80 @@
+{
+  "jobs": [
+    {
+      "name": "Software Developer Engineer",
+      "company": "Google",
+      "isOpen": true,
+      "noPositions": 1,
+      "salary": 10000.0,
+      "graduation_constraint": {
+        "minimum": 2002,
+        "maximum": 2020
+      },
+      "experience_constraint": {
+        "minimum": 2,
+        "maximum": 6
+      },
+      "mean_constraint": {
+        "minimum": 9,
+        "maximum": null
+      }
+    },
+    {
+      "name": "Software Developer Engineer Intern",
+      "company": "Google",
+      "isOpen": true,
+      "noPositions": 1,
+      "salary": 5000.0,
+      "graduation_constraint": {
+        "minimum": null,
+        "maximum": null
+      },
+      "experience_constraint": {
+        "minimum": 0,
+        "maximum": 2
+      },
+      "mean_constraint": {
+        "minimum": 9,
+        "maximum": null
+      }
+    },
+    {
+      "name": "Software Developer Engineer",
+      "company": "Amazon",
+      "isOpen": true,
+      "noPositions": 1,
+      "salary": 12000.0,
+      "graduation_constraint": {
+        "minimum": 2014,
+        "maximum": 2020
+      },
+      "experience_constraint": {
+        "minimum": 1,
+        "maximum": null
+      },
+      "mean_constraint": {
+        "minimum": 9,
+        "maximum": null
+      }
+    },
+    {
+      "name": "Software Developer Engineer Intern",
+      "company": "Amazon",
+      "isOpen": true,
+      "noPositions": 1,
+      "salary": 6000.0,
+      "graduation_constraint": {
+        "minimum": null,
+        "maximum": null
+      },
+      "experience_constraint": {
+        "minimum": 0,
+        "maximum": 2
+      },
+      "mean_constraint": {
+        "minimum": 9.35,
+        "maximum": null
+      }
+    }
+  ]
+}

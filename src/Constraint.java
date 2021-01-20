@@ -11,7 +11,19 @@ public class Constraint
 
     public Boolean meetsRequirement(Number value)
     {
-        return !(value.doubleValue() < minimum.doubleValue()) && !(value.doubleValue() > minimum.doubleValue());
+        if (minimum == null && maximum == null)
+        {
+            return true;
+        }
+        if (minimum == null)
+        {
+            return value.doubleValue() <= maximum.doubleValue();
+        }
+        if (maximum == null)
+        {
+            return value.doubleValue() >= minimum.doubleValue();
+        }
+        return (value.doubleValue() >= minimum.doubleValue()) && (value.doubleValue() <= maximum.doubleValue());
     }
 
     public Number getMinimum()

@@ -7,7 +7,7 @@ public class User extends Consumer implements Observer
 
     protected User(Resume resume, ArrayList<Consumer> network, ArrayList<String> interestedCompanies)
     {
-        super(resume, network);
+        super(resume);
         this.interestedCompanies = interestedCompanies;
     }
 

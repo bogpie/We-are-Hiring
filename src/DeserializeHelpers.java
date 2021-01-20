@@ -99,11 +99,6 @@ public class DeserializeHelpers
     {
         Information information = DeserializeHelpers.deserializeInformation(consumerObject);
 
-        if (information.getGivenName().equals("Molly"))
-        {
-            int breakpoint = 0;
-        }
-
         TreeSet<Education> educationSet = DeserializeHelpers.deserializeEducationSet(consumerObject);
         TreeSet<Experience> experienceSet = DeserializeHelpers.deserializeExperienceSet(consumerObject);
 

@@ -1,13 +1,11 @@
 import Exceptions.InvalidDatesException;
 import Exceptions.ResumeIncompleteException;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -230,5 +228,39 @@ public class ParsedInfo
             consumer2.getNetwork().add(consumer1);
         }
 
+    }
+
+    public void parseJobs(File input) throws FileNotFoundException
+    {
+        Gson gson = new GsonBuilder().create();
+        JsonArray array = JsonParser.parseReader(new FileReader(input)).getAsJsonObject().get("jobs").getAsJsonArray();
+
+        for (JsonElement element : array)
+        {
+
+            // Job job = gson.fromJson(element,Job.class);
+
+            JsonObject object = element.getAsJsonObject();
+
+            String name = object.get("name").getAsString();
+            String company = object.get("company").getAsString();
+            boolean isOpen = object.get("isOpen").getAsBoolean();
+            double salary = object.get("salary").getAsDouble();
+            int noPositions = object.get("noPositions").getAsInt();
+
+            Constraint graduationConstraint = gson.fromJson(object.get("graduation_constraint"), Constraint.class);
+            Constraint experienceConstraint = gson.fromJson(object.get("experience_constraint"), Constraint.class);
+            Constraint meanConstraint = gson.fromJson(object.get("experience_constraint"), Constraint.class);
+
+            Job job = new Job(name, company, isOpen, graduationConstraint, experienceConstraint, meanConstraint, noPositions);
+            ArrayList<Department> departments = Application.getInstance().getCompany(company).getDepartments();
+            for(Department department:departments)
+            {
+                if(department instanceof IT)
+                {
+                    department.add(job);
+                }
+            }
+        }
     }
 }

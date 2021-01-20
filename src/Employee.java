@@ -8,7 +8,7 @@ public class Employee extends Consumer
 
     protected Employee(Resume resume, ArrayList<Consumer> network, String companyName, Double salary)
     {
-        super(resume, network);
+        super(resume);
         this.companyName = companyName;
         this.salary = salary;
     }
@@ -32,7 +32,7 @@ public class Employee extends Consumer
     @Override
     public String toString()
     {
-        return "Employee: " + super.toString();
+        return "Employee at " + companyName + " : " + super.toString();
 
         /*
         return "Employee{" +

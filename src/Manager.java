@@ -1,4 +1,3 @@
-import java.nio.channels.OverlappingFileLockException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -31,7 +30,7 @@ public class Manager extends Employee
             User user = (User) request.getValue1();
 
             if (job.getNoPositions() == 0) break;
-            if (!request.getKey().getJobName().equals(job.getJobName())) continue;
+            if (!request.getKey().getName().equals(job.getName())) continue;
             if(!job.meetsRequirement(user)) continue;
 
             ArrayList<User> users = application.getUsers();

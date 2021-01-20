@@ -38,9 +38,10 @@ public class Test
         input = new File(System.getProperty("user.dir") + "/arhiva/graph_edges.txt");
         parsedInfo.parseGraphEdges(input);
 
-        Consumer consumer = Application.getInstance().getUsers().get(3);
+        input = new File(System.getProperty("user.dir") + "/arhiva/jobs.json");
+        parsedInfo.parseJobs(input);
 
-        System.out.println(consumer);
+
     }
 
 

@@ -38,6 +38,10 @@ public class Company implements Subject
 
     public void add(Employee employee, Department department)
     {
+        department.add(employee);
+
+        /*
+
         for (Department iterated : departments)
         {
             if (iterated == department)
@@ -47,7 +51,7 @@ public class Company implements Subject
                 //departments.add(department);
                 return;
             }
-        }
+        }*/
     }
 
     public void remove(Employee employee)

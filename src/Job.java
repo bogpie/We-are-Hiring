@@ -1,16 +1,22 @@
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Job
 {
-    private final String jobName;
+    private final String name;
     private final String company;
     private final boolean isOpen;
-    private final Constraint graduationConstraint;
-    private final Constraint experienceConstraint;
-    private final Constraint meanConstraint;
-    private ArrayList <User> candidates;
     private int noPositions;
     private Double salary;
+    //@SerializedName("graduation_constraint")
+    private final Constraint graduationConstraint;
+    //@SerializedName("experience_constraint")
+    private final Constraint experienceConstraint;
+    //@SerializedName("mean_constraint")
+    private final Constraint meanConstraint;
+
+    private ArrayList <User> candidates;
 
     public boolean isOpen()
     {
@@ -33,10 +39,10 @@ public class Job
     }
 
 
-    public Job(String jobName, String companyName, boolean isOpen, Constraint graduationConstraint, Constraint experienceConstraint, Constraint meanConstraint, int noPositions)
+    public Job(String name, String company, boolean isOpen, Constraint graduationConstraint, Constraint experienceConstraint, Constraint meanConstraint, int noPositions)
     {
-        this.jobName = jobName;
-        this.company = companyName;
+        this.name = name;
+        this.company = company;
         this.isOpen = isOpen;
         this.graduationConstraint = graduationConstraint;
         this.experienceConstraint = experienceConstraint;
@@ -65,9 +71,9 @@ public class Job
         return noPositions;
     }
 
-    public String getJobName()
+    public String getName()
     {
-        return jobName;
+        return name;
     }
 
     public String getCompany()
@@ -78,5 +84,15 @@ public class Job
     public void setNoPositions(int noPositions)
     {
         this.noPositions = noPositions;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Job{" +
+                "name='" + name + '\'' +
+                ", company='" + company + '\'' +
+                ", noPositions=" + noPositions +
+                '}';
     }
 }
