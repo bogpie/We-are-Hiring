@@ -5,6 +5,8 @@ public abstract class Department
     private ArrayList<Employee> employees;
     private ArrayList<Job> jobs;
 
+    private Company company;
+
     public Department()
     {
         employees = new ArrayList<>();
@@ -30,6 +32,7 @@ public abstract class Department
     public void add(Job job)
     {
         jobs.add(job);
+        company.notifyAllObservers(new Notification("New job",job.toString()));
     }
 
     public abstract double getTotalSalaryBudget();
@@ -53,6 +56,16 @@ public abstract class Department
     public void setJobs(ArrayList<Job> jobs)
     {
         this.jobs = jobs;
+    }
+
+    public Company getCompany()
+    {
+        return company;
+    }
+
+    public void setCompany(Company company)
+    {
+        this.company = company;
     }
 
     @Override

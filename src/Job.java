@@ -1,11 +1,10 @@
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Job
 {
     private final String name;
-    private final String company;
+    private final String companyName;
     private boolean isOpen;
 
     private int noPositions;
@@ -13,7 +12,7 @@ public class Job
     private final Constraint graduationConstraint;
     private final Constraint experienceConstraint;
     private final Constraint meanConstraint;
-    private ArrayList <User> candidates;
+    private ArrayList<User> candidates;
 
 
     public Constraint getGraduationConstraint()
@@ -32,10 +31,10 @@ public class Job
     }
 
 
-    public Job(String name, String company, boolean isOpen, Constraint graduationConstraint, Constraint experienceConstraint, Constraint meanConstraint, int noPositions)
+    public Job(String name, String companyName, boolean isOpen, Constraint graduationConstraint, Constraint experienceConstraint, Constraint meanConstraint, int noPositions)
     {
         this.name = name;
-        this.company = company;
+        this.companyName = companyName;
         this.isOpen = isOpen;
         this.graduationConstraint = graduationConstraint;
         this.experienceConstraint = experienceConstraint;
@@ -45,7 +44,7 @@ public class Job
 
     public void apply(User user)
     {
-        Company company = Application.getInstance().getCompany(this.company);
+        Company company = Application.getInstance().getCompany(this.companyName);
         Recruiter evaluator = company.getRecruiter(user);
 
         int formula = 0;
@@ -57,19 +56,15 @@ public class Job
 
     public boolean meetsRequirement(User user)
     {
-        if(!getExperienceConstraint().meetsRequirement(user.getTotalExperience())) return false;
-        if(!getGraduationConstraint().meetsRequirement(user.getGraduationYear())) return false;
+        if (!getExperienceConstraint().meetsRequirement(user.getTotalExperience())) return false;
+        if (!getGraduationConstraint().meetsRequirement(user.getGraduationYear())) return false;
         return getMeanConstraint().meetsRequirement(user.meanGPA());
     }
 
     @Override
     public String toString()
     {
-        return "Job{" +
-                "name='" + name + '\'' +
-                ", company='" + company + '\'' +
-                ", noPositions=" + noPositions +
-                '}';
+        return name + " @ " + companyName + " ";
     }
 
     public int getNoPositions()
@@ -82,9 +77,9 @@ public class Job
         return name;
     }
 
-    public String getCompany()
+    public String getCompanyName()
     {
-        return company;
+        return companyName;
     }
 
     public void setNoPositions(int noPositions)
@@ -100,5 +95,11 @@ public class Job
     public void setOpen(boolean open)
     {
         isOpen = open;
+        Company company = Application.getInstance().getCompany(companyName);
+
+        String title = "Job closed";
+        if (open) title = "Job opened";
+
+        company.notifyAllObservers(new Notification(title, this.toString()));
     }
 }

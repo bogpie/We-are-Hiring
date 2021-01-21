@@ -1,13 +1,14 @@
-import javax.management.Notification;
 import java.util.*;
 
 public class User extends Consumer implements Observer
 {
     private ArrayList<String> interestedCompanies;
+    ArrayList<Notification> notifications;
 
     protected User(Resume resume, ArrayList<Consumer> network, ArrayList<String> interestedCompanies)
     {
         super(resume);
+        notifications = new ArrayList<>();
         this.interestedCompanies = interestedCompanies;
     }
 
@@ -21,7 +22,8 @@ public class User extends Consumer implements Observer
     @Override
     public void update(Notification notification)
     {
-        System.out.println("Notification for" + getName() + ": " + notification.getMessage());
+        notifications.add(notification);
+        System.out.println("Notification for " + getName() + ": " + notification.getTitle() + " - " + notification.getContent());
     }
 
     @Override

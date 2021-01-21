@@ -15,7 +15,7 @@ public class Test
 
     private static void runScenario()
     {
-        for(User user : Application.getInstance().getUsers())
+        for (User user : Application.getInstance().getUsers())
         {
             for (String companyName : user.getInterestedCompanies())
             {
@@ -30,13 +30,13 @@ public class Test
         }
 
 
-        for(Company company : Application.getInstance().getCompanies())
+        for (Company company : Application.getInstance().getCompanies())
         {
             Manager manager = company.getManager();
 
-            for(Job job : company.getJobs())
+            for (Job job : company.getJobs())
             {
-                if(!job.getOpen()) continue;
+                if (!job.getOpen()) continue;
                 job.setOpen(false);
                 manager.process(job);
             }
@@ -72,11 +72,12 @@ public class Test
         parsedInfo.parseJobs(input);
 
         runScenario();
+        System.out.println();
+        System.out.println();
         System.out.println(Application.getInstance().getCompany("Google").getDepartments().get(0));
         System.out.println();
         System.out.println();
         System.out.println(Application.getInstance().getCompany("Amazon").getDepartments().get(0));
-
 
 
         AppFrame appFrame = new AppFrame("Admin Page");

@@ -24,15 +24,21 @@ public class Manager extends Employee
     public void process(Job job)
     {
         Application application = Application.getInstance();
-        Company desiredCompany = application.getCompany(job.getCompany());
+        Company desiredCompany = application.getCompany(job.getCompanyName());
 
         for (Request<Job, Consumer> request : requests)
         {
             User user = (User) request.getValue1();
 
-            if (job.getNoPositions() == 0) break;
+            if (job.getNoPositions() == 0)
+            {
+                user.update(new Notification("Rejected from " + job.toString(),"Reason: no more positions left"));
+            }
             if (!request.getKey().getName().equals(job.getName())) continue;
-            if (!job.meetsRequirement(user)) continue;
+            if (!job.meetsRequirement(user))
+            {
+                user.update(new Notification("Rejected from " + job.toString(),"Reason: didn't meet requirements"));
+            }
 
             ArrayList<User> users = application.getUsers();
             ArrayList<Company> companies = application.getCompanies();

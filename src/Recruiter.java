@@ -22,7 +22,7 @@ public class Recruiter extends Employee
         double totalScore = user.getTotalScore();
         double formula = getRating() * totalScore;
         Request<Job, Consumer> request = new Request<>(job, user, this, formula);
-        Application.getInstance().getCompany(job.getCompany()).getManager().add(request);
+        Application.getInstance().getCompany(job.getCompanyName()).getManager().add(request);
         setRating(getRating() + 0.1);
         return (int)formula;
     }

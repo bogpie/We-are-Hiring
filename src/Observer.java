@@ -1,4 +1,3 @@
-import javax.management.Notification;
 
 public interface Observer
 {

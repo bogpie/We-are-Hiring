@@ -1,4 +1,3 @@
-import javax.management.Notification;
 import java.util.ArrayList;
 
 public class Company implements Subject
@@ -27,6 +26,7 @@ public class Company implements Subject
 
     public void add(Department department)
     {
+        department.setCompany(this);
         departments.add(department);
     }
 
@@ -176,9 +176,8 @@ public class Company implements Subject
     }
 
     @Override
-    public void notifyAllObservers()
+    public void notifyAllObservers(Notification notification)
     {
-        Notification notification = new Notification("Type", this, 1, "Message");
         for (User user : applicants)
         {
             user.update(notification);
