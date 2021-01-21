@@ -1,5 +1,6 @@
 import Exceptions.ResumeIncompleteException;
 
+import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public abstract class Consumer
         this.resume = resume;
     }
 
-    public Consumer (Resume resume,ArrayList<Consumer> network)
+    public Consumer(Resume resume, ArrayList<Consumer> network)
     {
         this.resume = resume;
         this.network = network;
@@ -53,6 +54,7 @@ public abstract class Consumer
 
         private final TreeSet<Education> educationSet;
         private final TreeSet<Experience> experienceSet;
+
         private Resume(ResumeBuilder builder)
         {
             this.information = builder.information;
@@ -170,7 +172,7 @@ public abstract class Consumer
             isVisited.put(consumers.get(0), true);
             for (Consumer friend : network)
             {
-                if(isVisited.get(friend) == null || !isVisited.get(friend))
+                if (isVisited.get(friend) == null || !isVisited.get(friend))
                 {
                     if (friend.equals(consumer))
                     {
@@ -196,7 +198,9 @@ public abstract class Consumer
         Period totalPeriod = Period.ZERO;
         for (Experience experience : resume.experienceSet)
         {
-            Period period = Period.between(experience.getStartDate(), experience.getEndDate());
+            LocalDate endDate = experience.getEndDate();
+            if (endDate == null) endDate = LocalDate.now();
+            Period period = Period.between(experience.getStartDate(), endDate);
             totalPeriod = totalPeriod.plus(period);
         }
 
@@ -241,6 +245,7 @@ public abstract class Consumer
     {
         return network;
     }
+
     public void setNetwork(ArrayList<Consumer> network)
     {
         this.network = network;

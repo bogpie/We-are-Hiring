@@ -30,11 +30,6 @@ public class Manager extends Employee
         {
             User user = (User) request.getValue1();
 
-            if (user.getGraduationYear() == null)
-            {
-                int breakpoint = 0;
-            }
-
             if (job.getNoPositions() == 0) break;
             if (!request.getKey().getName().equals(job.getName())) continue;
             if (!job.meetsRequirement(user)) continue;
