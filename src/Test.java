@@ -95,10 +95,10 @@ public class Test
                 System.out.println(Application.getInstance().getCompany("Amazon").getDepartments().get(0));
 
             }
-            AppFrame appFrame = new AppFrame("Admin Page");
+            //AppFrame appFrame = new AppFrame("Admin Page");
 
             ManagerFrame managerFrame1 = new ManagerFrame(Application.getInstance().getManagers().get(0));
-            ManagerFrame managerFrame2 = new ManagerFrame(Application.getInstance().getManagers().get(1));
+            //ManagerFrame managerFrame2 = new ManagerFrame(Application.getInstance().getManagers().get(1));
         }
 
     }

@@ -1,9 +1,9 @@
-public class Request<K, V> implements Comparable<Request<K,V>>
+public class Request<K, V> implements Comparable<Request<K, V>>
 {
-    private final K key;
-    private final V value1;
-    private final V value2;
-    private final Double score;
+    private K key;
+    private V value1;
+    private V value2;
+    private Double score;
 
     public Request(K key, V value1, V value2, Double score)
     {
@@ -13,13 +13,20 @@ public class Request<K, V> implements Comparable<Request<K,V>>
         this.score = score;
     }
 
+    public Request()
+    {
+
+    }
+
     public String toString()
     {
-        return "Key: " + key + " ; Value1: " + value1 + " ; Value2: " + value2 + "; Score: " + score;
+        return "Request for " + ((Job) key).getName()
+                + " , from " + ((Consumer) getValue1()).getName()
+                + ", evaluated by " + ((Consumer) getValue2()).getName();
     }
 
     @Override
-    public int compareTo(Request <K,V> otherRequest)
+    public int compareTo(Request<K, V> otherRequest)
     {
         //return ((Request) other).getScore().compareTo(getScore());
         return otherRequest.getScore().compareTo(getScore());

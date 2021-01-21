@@ -2,10 +2,7 @@ import Exceptions.ResumeIncompleteException;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.*;
 
 public abstract class Consumer
 {
@@ -162,30 +159,45 @@ public abstract class Consumer
 
     public int getDegreeInFriendship(Consumer consumer)
     {
-        ArrayList<Consumer> consumers = new ArrayList<>();
+        ArrayList<QueueElement> queue = new ArrayList<>();
         HashMap<Consumer, Boolean> isVisited = new HashMap<>();
 
-        int degree = 0;
-        consumers.add(this);
-        while (!consumers.isEmpty())
+        queue.add(new QueueElement(this, 0));
+        while (!queue.isEmpty())
         {
-            isVisited.put(consumers.get(0), true);
+            Consumer topConsumer = queue.get(0).getConsumer();
+            isVisited.put(queue.get(0).getConsumer(), true);
+
+            int topDegree = queue.get(0).getDegree();
+
             for (Consumer friend : network)
             {
                 if (isVisited.get(friend) == null || !isVisited.get(friend))
                 {
                     if (friend.equals(consumer))
                     {
-                        return degree;
+                        return topDegree + 1;
+                    }
+                    else
+                    {
+                        queue.add(new QueueElement(friend,topDegree+1));
                     }
 
                 }
             }
-            consumers.remove(consumers.get(0));
-            ++degree;
+            queue.remove(queue.get(0));
         }
 
-        return degree;
+        return Integer.MAX_VALUE;
+    }
+
+    public boolean equals(Object other)
+    {
+        if (getClass() != other.getClass())
+        {
+            return false;
+        }
+        return getName().equals(((Consumer) other).getName());
     }
 
     public void remove(Consumer consumer)

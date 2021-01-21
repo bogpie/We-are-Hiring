@@ -73,20 +73,44 @@ public class Manager extends Employee
             }
 
             job.setNoPositions(job.getNoPositions() - 1);
-
         }
+
+        requests.clear();
     }
 
     @Override
     public String toString()
     {
-        return "Manager: " + super.toString();
+        return getName() + ", CEO @ " + getCompanyName();
 
     }
 
     public void add(Request<Job, Consumer> request)
     {
         requests.add(request);
+    }
+
+    public void forceEmploy(Job job, User user)
+    {
+        /// previously unemployed
+        Application.getInstance().getUsers().remove(user);
+
+        Employee employee = user.convert();
+        employee.setCompanyName(getCompanyName());
+
+        Company desiredCompany = Application.getInstance().getCompany(job.getCompanyName());
+
+        for (Department department : desiredCompany.getDepartments())
+        {
+            if (department.getJobs().contains(job))
+            {
+                department.add(user.convert());
+                user.update(new Notification("Accepted! ",job.toString()));
+                break;
+            }
+        }
+
+        job.setNoPositions(job.getNoPositions() - 1);
     }
 
     public void setRequests(TreeSet<Request<Job, Consumer>> requests)
