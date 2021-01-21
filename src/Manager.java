@@ -33,6 +33,7 @@ public class Manager extends Employee
             if (job.getNoPositions() == 0)
             {
                 user.update(new Notification("Rejected from " + job.toString(),"Reason: no more positions left"));
+                continue;
             }
             if (!request.getKey().getName().equals(job.getName())) continue;
             if (!job.meetsRequirement(user))
@@ -66,6 +67,7 @@ public class Manager extends Employee
                 if (department.getJobs().contains(job))
                 {
                     department.add(employee);
+                    user.update(new Notification("Accepted! ",job.toString()));
                     break;
                 }
             }

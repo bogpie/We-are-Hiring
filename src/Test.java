@@ -3,17 +3,13 @@ import Exceptions.ResumeIncompleteException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Test
 {
-
-
     public Consumer.Resume resume;
 
-    private static void runScenario()
+    private void batchApply()
     {
         for (User user : Application.getInstance().getUsers())
         {
@@ -29,7 +25,10 @@ public class Test
             }
         }
 
+    }
 
+    private void batchEvaluate()
+    {
         for (Company company : Application.getInstance().getCompanies())
         {
             Manager manager = company.getManager();
@@ -43,8 +42,19 @@ public class Test
         }
     }
 
+    private void runScenario()
+    {
+        batchApply();
+        batchEvaluate();
+
+
+    }
+
+
     public static void main(String[] args) throws FileNotFoundException, ResumeIncompleteException, InvalidDatesException
     {
+        Test test = new Test();
+
         File input = new File(System.getProperty("user.dir") + "/arhiva/consumers.json");
         ParsedInfo parsedInfo = new ParsedInfo();
 
@@ -71,7 +81,7 @@ public class Test
         input = new File(System.getProperty("user.dir") + "/arhiva/jobs.json");
         parsedInfo.parseJobs(input);
 
-        runScenario();
+        test.runScenario();
         System.out.println();
         System.out.println();
         System.out.println(Application.getInstance().getCompany("Google").getDepartments().get(0));
