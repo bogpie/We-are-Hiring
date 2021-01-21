@@ -1,6 +1,7 @@
 import Exceptions.InvalidDatesException;
 import Exceptions.ResumeIncompleteException;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -42,14 +43,6 @@ public class Test
         }
     }
 
-    private void runScenario()
-    {
-        batchApply();
-        batchEvaluate();
-
-
-    }
-
 
     public static void main(String[] args) throws FileNotFoundException, ResumeIncompleteException, InvalidDatesException
     {
@@ -81,16 +74,32 @@ public class Test
         input = new File(System.getProperty("user.dir") + "/arhiva/jobs.json");
         parsedInfo.parseJobs(input);
 
-        test.runScenario();
-        System.out.println();
-        System.out.println();
-        System.out.println(Application.getInstance().getCompany("Google").getDepartments().get(0));
-        System.out.println();
-        System.out.println();
-        System.out.println(Application.getInstance().getCompany("Amazon").getDepartments().get(0));
+
+        test.batchApply();
 
 
-        AppFrame appFrame = new AppFrame("Admin Page");
+        DefaultFrame defaultFrame = new DefaultFrame("Evaluation query");
+
+        int answer = JOptionPane.showConfirmDialog(new DefaultFrame("Evaluation"), "Would you like to evaluate requests automatically?");
+        if (answer != JOptionPane.CANCEL_OPTION && answer != JOptionPane.CLOSED_OPTION)
+        {
+            if (answer == JOptionPane.YES_OPTION)
+            {
+                test.batchEvaluate();
+
+                System.out.println();
+                System.out.println();
+                System.out.println(Application.getInstance().getCompany("Google").getDepartments().get(0));
+                System.out.println();
+                System.out.println();
+                System.out.println(Application.getInstance().getCompany("Amazon").getDepartments().get(0));
+
+            }
+            AppFrame appFrame = new AppFrame("Admin Page");
+
+            ManagerFrame managerFrame1 = new ManagerFrame(Application.getInstance().getManagers().get(0));
+            ManagerFrame managerFrame2 = new ManagerFrame(Application.getInstance().getManagers().get(1));
+        }
 
     }
 

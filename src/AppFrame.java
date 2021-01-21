@@ -4,15 +4,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class AppFrame extends JFrame
+public class AppFrame extends DefaultFrame
 {
     private JTree tree;
 
-    public AppFrame(String text)
+    public AppFrame(String title)
     {
-        super(text);
+        super(title);
 
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+        tree = new JTree(root);
         DefaultMutableTreeNode companiesNode = new DefaultMutableTreeNode("Companies");
         DefaultMutableTreeNode usersNode = new DefaultMutableTreeNode("Users");
         root.add(companiesNode);
@@ -60,14 +61,7 @@ public class AppFrame extends JFrame
             usersNode.add(userNode);
 
         }
-
-        tree = new JTree(root);
         add(tree);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(700, 700));
-        getContentPane().setBackground(Color.blue);
-        setLayout(new GridLayout());
         show();
         pack();
     }
