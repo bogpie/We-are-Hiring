@@ -30,7 +30,7 @@ public class Recruiter extends Employee
     @Override
     public String toString()
     {
-        return "Recruiter: " + super.toString();
+        return super.toString() + ", recruiter";
         /*
         return "Recruiter{" +
                 "resume=" + resume +

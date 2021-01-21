@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,17 +11,13 @@ public class Application
     private ArrayList<User> users;
     private static Application instance = null;
 
+    private DefaultFrame defaultFrame;
+
     private ArrayList<Employee> employees;
+
     private ArrayList<Recruiter> recruiters;
     private ArrayList<Manager> managers;
     private HashMap<String,Consumer> codeToConsumer;
-
-    private Application(ArrayList<Company> companies, ArrayList<User> users)
-    {
-        this.companies = companies;
-        this.users = users;
-        codeToConsumer = new HashMap<>();
-    }
 
     private Application()
     {
@@ -71,9 +68,9 @@ public class Application
     public ArrayList<Job> getJobs(List<String> companies)
     {
         ArrayList<Job> jobs = new ArrayList<>();
-        for (Company company : getCompanies())
+        for (String companyName : companies)
         {
-            jobs.addAll(company.getJobs());
+            jobs.addAll(getCompany(companyName).getJobs());
         }
         return jobs;
     }
@@ -93,6 +90,16 @@ public class Application
             }
         }
         return null;
+    }
+
+    public void switchPage(JPanel panel,String title)
+    {
+        getDefaultFrame().dispose();
+        setDefaultFrame(new DefaultFrame(title));
+        getDefaultFrame().add(panel);
+        getDefaultFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getDefaultFrame().show();
+        getDefaultFrame().pack();
     }
 
     public ArrayList<User> getUsers()
@@ -148,5 +155,15 @@ public class Application
     public HashMap<String, Consumer> getCodeToConsumer()
     {
         return codeToConsumer;
+    }
+
+    public DefaultFrame getDefaultFrame()
+    {
+        return defaultFrame;
+    }
+
+    public void setDefaultFrame(DefaultFrame defaultFrame)
+    {
+        this.defaultFrame = defaultFrame;
     }
 }

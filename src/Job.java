@@ -64,7 +64,7 @@ public class Job
     @Override
     public String toString()
     {
-        return name + " @ " + companyName + " ";
+        return name + " @ " + companyName + " " + " * " + noPositions;
     }
 
     public int getNoPositions()

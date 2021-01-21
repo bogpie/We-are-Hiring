@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Company implements Subject
 {
     private final String companyName;
-    private final Manager manager;
+    private Manager manager;
     private ArrayList<Department> departments;
     private ArrayList<Recruiter> recruiters;
     private ArrayList<User> applicants;
@@ -15,13 +15,6 @@ public class Company implements Subject
         applicants = new ArrayList<>();
         departments = new ArrayList<>();
         recruiters = new ArrayList<>();
-    }
-
-    public Company(String companyName, Manager manager, ArrayList<Department> departments, ArrayList<Recruiter> recruiters)
-    {
-        this(companyName, manager);
-        this.departments = departments;
-        this.recruiters = recruiters;
     }
 
     public void add(Department department)
@@ -40,18 +33,7 @@ public class Company implements Subject
     {
         department.add(employee);
 
-        /*
 
-        for (Department iterated : departments)
-        {
-            if (iterated == department)
-            {
-                //departments.remove(department);
-                department.add(employee);
-                //departments.add(department);
-                return;
-            }
-        }*/
     }
 
     public void remove(Employee employee)
@@ -223,5 +205,20 @@ public class Company implements Subject
     public void setApplicants(ArrayList<User> applicants)
     {
         this.applicants = applicants;
+    }
+
+    public void setManager(Manager manager)
+    {
+        this.manager = manager;
+    }
+
+    public void setDepartments(ArrayList<Department> departments)
+    {
+        this.departments = departments;
+    }
+
+    public void setRecruiters(ArrayList<Recruiter> recruiters)
+    {
+        this.recruiters = recruiters;
     }
 }

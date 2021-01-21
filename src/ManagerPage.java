@@ -8,27 +8,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ManagerFrame extends DefaultFrame implements ActionListener, TreeSelectionListener
+public class ManagerPage extends DefaultPanel implements ActionListener, TreeSelectionListener
 {
     private Manager manager;
     private JTree tree;
     private Request<Job, Consumer> selectedRequest = new Request<>();
     private DefaultMutableTreeNode selectedNode = new DefaultMutableTreeNode();
 
-    public ManagerFrame(Manager manager) throws HeadlessException
+    public ManagerPage(Manager manager) throws HeadlessException
     {
-        super(manager.getName());
+        //super(manager.getName());
         this.manager = manager;
 
-        setLayout(new GridLayout(2, 1));
+        JPanel grid = new JPanel(new GridLayout(2, 1));
+        add(grid);
 
         JPanel requestsPanel = new JPanel();
-        add(requestsPanel);
+        grid.add(requestsPanel);
 
         DefaultMutableTreeNode managerNode = new DefaultMutableTreeNode(manager);
 
         Object object = managerNode.getUserObject();
-        Manager testManager = (Manager) object;
 
         tree = new JTree(managerNode);
         requestsPanel.add(tree);
@@ -42,7 +42,7 @@ public class ManagerFrame extends DefaultFrame implements ActionListener, TreeSe
         }
 
         JPanel actionsPanel = new JPanel();
-        add(actionsPanel);
+        grid.add(actionsPanel);
         JButton acceptButton = new JButton("Accept");
         JButton rejectButton = new JButton("Reject");
         acceptButton.addActionListener(this);
@@ -50,14 +50,15 @@ public class ManagerFrame extends DefaultFrame implements ActionListener, TreeSe
         actionsPanel.add(acceptButton);
         actionsPanel.add(rejectButton);
 
-        show();
-        pack();
+
+        //show();
+        //pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if (e.getSource() instanceof JButton && selectedRequest.getValue1()!=null)
+        if (e.getSource() instanceof JButton && selectedRequest.getValue1() != null)
         {
             JButton button = ((JButton) e.getSource());
             Job job = selectedRequest.getKey();
@@ -70,12 +71,16 @@ public class ManagerFrame extends DefaultFrame implements ActionListener, TreeSe
                     JOptionPane.showMessageDialog(this, "All the job positions have been filled!");
                     return;
                 }
-
-                manager.forceEmploy(job,user);
+                if (!Application.getInstance().getUsers().contains(user))
+                {
+                    JOptionPane.showMessageDialog(this, "User already employed!");
+                    return;
+                }
+                manager.forceEmploy(job, user);
             }
             else
             {
-                user.update(new Notification("Rejected from " + job.toString(),"Reason: rejected by manager"));
+                user.update(new Notification("Rejected from " + job.toString(), "Reason: rejected by manager"));
             }
 
             manager.getRequests().remove(selectedRequest);

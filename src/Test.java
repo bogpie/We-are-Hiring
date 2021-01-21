@@ -2,13 +2,13 @@ import Exceptions.InvalidDatesException;
 import Exceptions.ResumeIncompleteException;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Test
 {
-    public Consumer.Resume resume;
 
     private void batchApply()
     {
@@ -61,6 +61,8 @@ public class Test
         Application.getInstance().setManagers(managers);
         Application.getInstance().setRecruiters(recruiters);
         Application.getInstance().setEmployees(employees);
+        employees.addAll(recruiters);
+        employees.addAll(managers);
 
         input = new File(System.getProperty("user.dir") + "/arhiva/companies.json");
         parsedInfo.parseCompanies(input);
@@ -77,8 +79,8 @@ public class Test
 
         test.batchApply();
 
-
-        DefaultFrame defaultFrame = new DefaultFrame("Evaluation query");
+        Application application = Application.getInstance();
+        application.setDefaultFrame(new DefaultFrame("Evaluation query"));
 
         int answer = JOptionPane.showConfirmDialog(new DefaultFrame("Evaluation"), "Would you like to evaluate requests automatically?");
         if (answer != JOptionPane.CANCEL_OPTION && answer != JOptionPane.CLOSED_OPTION)
@@ -95,12 +97,16 @@ public class Test
                 System.out.println(Application.getInstance().getCompany("Amazon").getDepartments().get(0));
 
             }
-            //AppFrame appFrame = new AppFrame("Admin Page");
 
-            ManagerFrame managerFrame1 = new ManagerFrame(Application.getInstance().getManagers().get(0));
-            //ManagerFrame managerFrame2 = new ManagerFrame(Application.getInstance().getManagers().get(1));
         }
 
+        application.getDefaultFrame().dispose();
+        application.setDefaultFrame(new DefaultFrame("Main Page"));
+        application.getDefaultFrame().add(new MainPage());
+
+        application.getDefaultFrame().setLayout(new GridLayout(2, 1));
+        application.getDefaultFrame().show();
+        application.getDefaultFrame().pack();
     }
 
 }

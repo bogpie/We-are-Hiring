@@ -46,15 +46,8 @@ public class Employee extends Consumer
     @Override
     public String toString()
     {
-        return "Employee at " + companyName + " : " + super.toString();
+        return getName() + " " + "@" + companyName;
 
-        /*
-        return "Employee{" +
-                "resume=" + getResume() +
-                ", companyName='" + getCompanyName() + '\'' +
-                ", salary=" + getSalary() +
-                '}';
-        */
     }
 
     public void setCompanyName(String companyName)

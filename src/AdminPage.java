@@ -1,19 +1,15 @@
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
-public class AppFrame extends DefaultFrame
+public class AdminPage extends DefaultPanel
 {
-    private JTree tree;
 
-    public AppFrame(String title)
+    public AdminPage()
     {
-        super(title);
 
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-        tree = new JTree(root);
+        JTree tree = new JTree(root);
         DefaultMutableTreeNode companiesNode = new DefaultMutableTreeNode("Companies");
         DefaultMutableTreeNode usersNode = new DefaultMutableTreeNode("Users");
         root.add(companiesNode);
@@ -43,9 +39,10 @@ public class AppFrame extends DefaultFrame
                 departmentNode.add(jobsNode);
                 for (Job job : department.getJobs())
                 {
-                    DefaultMutableTreeNode jobNode = new DefaultMutableTreeNode(job.getName());
+                    DefaultMutableTreeNode jobNode = new DefaultMutableTreeNode(job);
                     // + "- is open: " + job.getOpen());
-                    jobsNode.add(jobNode);
+                    if (job.getNoPositions() != 0)
+                        jobsNode.add(jobNode);
                 }
 
                 DefaultMutableTreeNode budgetNode = new DefaultMutableTreeNode("Salary Budget: " + department.getTotalSalaryBudget());
@@ -55,14 +52,14 @@ public class AppFrame extends DefaultFrame
         }
 
         ArrayList<User> users = Application.getInstance().getUsers();
-        for (User user:users)
+        for (User user : users)
         {
             DefaultMutableTreeNode userNode = new DefaultMutableTreeNode(user.getName());
             usersNode.add(userNode);
 
         }
         add(tree);
-        show();
-        pack();
+
+        //show();
     }
 }

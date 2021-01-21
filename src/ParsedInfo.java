@@ -182,14 +182,10 @@ public class ParsedInfo
                     Application.getInstance().getCodeToConsumer().put(code, employee);
                     switch (departmentName)
                     {
-                        case "IT":
-                            IT.add(employee);
-                        case "management":
-                            management.add(employee);
-                        case "marketing":
-                            marketing.add(employee);
-                        case "finance":
-                            finance.add(employee);
+                        case "IT" -> IT.add(employee);
+                        case "Management" -> management.add(employee);
+                        case "Marketing" -> marketing.add(employee);
+                        case "Finance" -> finance.add(employee);
                     }
                 }
             }

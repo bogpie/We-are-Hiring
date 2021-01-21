@@ -29,7 +29,8 @@ public class User extends Consumer implements Observer
     @Override
     public String toString()
     {
-        return "User: " + super.toString();
+        return getName() + ", user";
+                //+ " " + "(" + getCode() + ")";
 
     }
 

@@ -61,10 +61,6 @@ public abstract class Consumer
 
         public String getCurrentCompany()
         {
-            if (information.getGivenName().equals("Molly"))
-            {
-                int breakPoint = 0;
-            }
             for (Experience experience : experienceSet)
             {
                 if (experience.getEndDate() == null)
@@ -170,7 +166,7 @@ public abstract class Consumer
 
             int topDegree = queue.get(0).getDegree();
 
-            for (Consumer friend : network)
+            for (Consumer friend : topConsumer.network)
             {
                 if (isVisited.get(friend) == null || !isVisited.get(friend))
                 {
@@ -229,11 +225,7 @@ public abstract class Consumer
         {
             return resume.educationSet.first().getEndDate().getYear();
         }
-        /*Iterator<Education> it = resume.educationSet.iterator();
-        if (it.hasNext())
-        {
-            return it.next().getEndDate().getYear();
-        }*/
+
         return null;
     }
 

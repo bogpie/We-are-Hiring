@@ -81,7 +81,7 @@ public class Manager extends Employee
     @Override
     public String toString()
     {
-        return getName() + ", CEO @ " + getCompanyName();
+        return super.toString() + ", manager";
 
     }
 
