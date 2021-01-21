@@ -30,12 +30,12 @@ public class Manager extends Employee
         {
             User user = (User) request.getValue1();
 
+            if (!request.getKey().getName().equals(job.getName())) continue;
             if (job.getNoPositions() == 0)
             {
                 user.update(new Notification("Rejected from " + job.toString(),"Reason: no more positions left"));
                 continue;
             }
-            if (!request.getKey().getName().equals(job.getName())) continue;
             if (!job.meetsRequirement(user))
             {
                 user.update(new Notification("Rejected from " + job.toString(),"Reason: didn't meet requirements"));
