@@ -1,12 +1,7 @@
 public class QueueElement
 {
     private Consumer consumer;
-    private int degree;
-
-    public QueueElement()
-    {
-
-    }
+    private final int degree;
 
     public QueueElement(Consumer consumer, int degree)
     {
@@ -29,8 +24,4 @@ public class QueueElement
         return degree;
     }
 
-    public void setDegree(int degree)
-    {
-        this.degree = degree;
-    }
 }

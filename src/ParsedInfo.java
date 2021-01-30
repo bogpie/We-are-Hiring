@@ -5,7 +5,6 @@ import com.google.gson.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -29,37 +28,8 @@ public class ParsedInfo
 
     }
 
-    public Consumer.Resume getResume()
-    {
-        return resume;
-    }
-
-    public void setResume(Consumer.Resume resume)
-    {
-        this.resume = resume;
-    }
-
-    public double getSalary()
-    {
-        return salary;
-    }
-
-    public void setSalary(double salary)
-    {
-        this.salary = salary;
-    }
-
-    public ArrayList<String> getInterestedCompanies()
-    {
-        return interestedCompanies;
-    }
-
-    public void setInterestedCompanies(ArrayList<String> interestedCompanies)
-    {
-        this.interestedCompanies = interestedCompanies;
-    }
-
-    public void parseConsumers(File input, ArrayList<Employee> employees, ArrayList<Recruiter> recruiters, ArrayList<User> users, ArrayList<Manager> managers)
+    public void parseConsumers(File input, ArrayList<Employee> employees, ArrayList<Recruiter> recruiters,
+                               ArrayList<User> users, ArrayList<Manager> managers)
             throws FileNotFoundException, InvalidDatesException, ResumeIncompleteException, NullPointerException
     {
         JsonElement jsonElement = JsonParser.parseReader(new FileReader(input));
@@ -95,8 +65,7 @@ public class ParsedInfo
         for (JsonElement element : jsonObject.get("users").getAsJsonArray())
         {
             parsedInfo = DeserializeHelpers.deserializeConsumer(element.getAsJsonObject());
-            network = new ArrayList<>();
-            users.add(new User(parsedInfo.getResume(), network, parsedInfo.getInterestedCompanies()));
+            users.add(new User(parsedInfo.getResume(), parsedInfo.getInterestedCompanies()));
         }
     }
 
@@ -151,7 +120,8 @@ public class ParsedInfo
                         {
                             iterated.setCode(code);
                             Application.getInstance().getCodeToConsumer().put(code, iterated);
-                            Employee employee = new Employee(iterated.getResume(), iterated.getNetwork(), iterated.getCompanyName(), iterated.getSalary());
+                            Employee employee = new Employee(iterated.getResume(), iterated.getNetwork(),
+                                    iterated.getCompanyName(), iterated.getSalary());
                             employee.setCode(iterated.getCode());
                             for (Department department : company.getDepartments())
                             {
@@ -258,7 +228,8 @@ public class ParsedInfo
             Constraint experienceConstraint = gson.fromJson(object.get("experience_constraint"), Constraint.class);
             Constraint meanConstraint = gson.fromJson(object.get("mean_constraint"), Constraint.class);
 
-            Job job = new Job(name, company, isOpen, graduationConstraint, experienceConstraint, meanConstraint, noPositions);
+            Job job = new Job(name, company, isOpen, graduationConstraint, experienceConstraint, meanConstraint,
+                    noPositions, salary);
             ArrayList<Department> departments = Application.getInstance().getCompany(company).getDepartments();
             for (Department department : departments)
             {
@@ -268,5 +239,25 @@ public class ParsedInfo
                 }
             }
         }
+    }
+
+    public Consumer.Resume getResume()
+    {
+        return resume;
+    }
+
+    public double getSalary()
+    {
+        return salary;
+    }
+
+    public void setSalary(double salary)
+    {
+        this.salary = salary;
+    }
+
+    public ArrayList<String> getInterestedCompanies()
+    {
+        return interestedCompanies;
     }
 }

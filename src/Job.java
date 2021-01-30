@@ -1,19 +1,17 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Job
 {
     private final String name;
     private final String companyName;
     private boolean isOpen;
-
     private int noPositions;
     private Double salary;
     private final Constraint graduationConstraint;
     private final Constraint experienceConstraint;
     private final Constraint meanConstraint;
-    private ArrayList<User> candidates;
 
+    private ArrayList<User> candidates;
 
     public Constraint getGraduationConstraint()
     {
@@ -31,7 +29,8 @@ public class Job
     }
 
 
-    public Job(String name, String companyName, boolean isOpen, Constraint graduationConstraint, Constraint experienceConstraint, Constraint meanConstraint, int noPositions)
+    public Job(String name, String companyName, boolean isOpen, Constraint graduationConstraint,
+               Constraint experienceConstraint, Constraint meanConstraint, int noPositions, Double salary)
     {
         this.name = name;
         this.companyName = companyName;
@@ -40,6 +39,8 @@ public class Job
         this.experienceConstraint = experienceConstraint;
         this.meanConstraint = meanConstraint;
         this.noPositions = noPositions;
+        this.salary = salary;
+        candidates = new ArrayList<>();
     }
 
     public void apply(User user)
@@ -64,7 +65,7 @@ public class Job
     @Override
     public String toString()
     {
-        return name + " @ " + companyName + " " + " * " + noPositions;
+        return name + " @ " + companyName + " " + " * " + noPositions + " positions;";
     }
 
     public int getNoPositions()
@@ -102,4 +103,20 @@ public class Job
 
         company.notifyAllObservers(new Notification(title, this.toString()));
     }
+
+    public Double getSalary()
+    {
+        return salary;
+    }
+
+    public void setSalary(Double salary)
+    {
+        this.salary = salary;
+    }
+
+    public ArrayList<User> getCandidates()
+    {
+        return candidates;
+    }
+
 }

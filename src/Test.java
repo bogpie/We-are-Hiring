@@ -21,6 +21,7 @@ public class Test
                 ArrayList<Job> jobs = company.getJobs();
                 for (Job job : jobs)
                 {
+                    job.getCandidates().add(user);
                     job.apply(user);
                 }
             }
@@ -44,11 +45,12 @@ public class Test
     }
 
 
-    public static void main(String[] args) throws FileNotFoundException, ResumeIncompleteException, InvalidDatesException
+    public static void main(String[] args) throws FileNotFoundException, ResumeIncompleteException,
+            InvalidDatesException
     {
         Test test = new Test();
 
-        File input = new File(System.getProperty("user.dir") + "/arhiva/consumers.json");
+        File input = new File(System.getProperty("user.dir") + "/src/Test_Files/consumers.json");
         ParsedInfo parsedInfo = new ParsedInfo();
 
         ArrayList<Employee> employees = new ArrayList<>();
@@ -64,16 +66,16 @@ public class Test
         employees.addAll(recruiters);
         employees.addAll(managers);
 
-        input = new File(System.getProperty("user.dir") + "/arhiva/companies.json");
+        input = new File(System.getProperty("user.dir") + "/src/Test_Files/companies.json");
         parsedInfo.parseCompanies(input);
 
-        input = new File(System.getProperty("user.dir") + "/arhiva/users_codes.json");
+        input = new File(System.getProperty("user.dir") + "/src/Test_Files/users_codes.json");
         parsedInfo.parseUsersCodes(input);
 
-        input = new File(System.getProperty("user.dir") + "/arhiva/graph_edges.txt");
+        input = new File(System.getProperty("user.dir") + "/src/Test_Files/graph_edges.txt");
         parsedInfo.parseGraphEdges(input);
 
-        input = new File(System.getProperty("user.dir") + "/arhiva/jobs.json");
+        input = new File(System.getProperty("user.dir") + "/src/Test_Files/jobs.json");
         parsedInfo.parseJobs(input);
 
 
@@ -82,18 +84,17 @@ public class Test
         Application application = Application.getInstance();
         application.setDefaultFrame(new DefaultFrame("Evaluation query"));
 
-        int answer = JOptionPane.showConfirmDialog(new DefaultFrame("Evaluation"), "Would you like to evaluate requests automatically?");
+        int answer = JOptionPane.showConfirmDialog(new DefaultFrame("Evaluation"),
+                "Would you like to evaluate requests automatically?");
         if (answer != JOptionPane.CANCEL_OPTION && answer != JOptionPane.CLOSED_OPTION)
         {
             if (answer == JOptionPane.YES_OPTION)
             {
                 test.batchEvaluate();
 
-                System.out.println();
-                System.out.println();
+                System.out.println("\n");
                 System.out.println(Application.getInstance().getCompany("Google").getDepartments().get(0));
-                System.out.println();
-                System.out.println();
+                System.out.println("\n");
                 System.out.println(Application.getInstance().getCompany("Amazon").getDepartments().get(0));
 
             }

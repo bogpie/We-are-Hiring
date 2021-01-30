@@ -5,23 +5,24 @@ import java.time.LocalDate;
 
 public class Education implements Comparable<Education>
 {
-    private String level;
+    private final String level;
     private String name;
 
     @SerializedName("start_date")
-    private LocalDate startDate;
+    private final LocalDate startDate;
 
     @SerializedName("end_date")
-    private LocalDate endDate;
+    private final LocalDate endDate;
 
-    private Double grade;
+    private final Double grade;
 
-    public Education(LocalDate startDate, LocalDate endDate, String institution, String level, Double grade) throws InvalidDatesException
+    public Education(LocalDate startDate, LocalDate endDate, String institution, String level, Double grade)
+            throws InvalidDatesException
     {
         this.level = level;
         this.grade = grade;
         this.name = institution;
-        if(endDate!=null && startDate.compareTo(endDate) > 0)
+        if (endDate != null && startDate.compareTo(endDate) > 0)
         {
             throw new InvalidDatesException();
         }
@@ -72,28 +73,9 @@ public class Education implements Comparable<Education>
         return endDate;
     }
 
-    public void setStartDate(LocalDate startDate)
-    {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(LocalDate endDate)
-    {
-        this.endDate = endDate;
-    }
-
     public void setName(String name)
     {
         this.name = name;
     }
 
-    public void setLevel(String level)
-    {
-        this.level = level;
-    }
-
-    public void setGrade(Double grade)
-    {
-        this.grade = grade;
-    }
 }

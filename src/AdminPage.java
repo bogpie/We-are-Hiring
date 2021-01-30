@@ -45,7 +45,8 @@ public class AdminPage extends DefaultPanel
                         jobsNode.add(jobNode);
                 }
 
-                DefaultMutableTreeNode budgetNode = new DefaultMutableTreeNode("Salary Budget: " + department.getTotalSalaryBudget());
+                DefaultMutableTreeNode budgetNode = new DefaultMutableTreeNode("Salary Budget: "
+                        + department.getTotalSalaryBudget());
                 departmentNode.add(budgetNode);
             }
 

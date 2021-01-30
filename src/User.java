@@ -2,10 +2,10 @@ import java.util.*;
 
 public class User extends Consumer implements Observer
 {
-    private ArrayList<String> interestedCompanies;
-    ArrayList<Notification> notifications;
+    private final ArrayList<String> interestedCompanies;
+    private final ArrayList<Notification> notifications;
 
-    protected User(Resume resume, ArrayList<Consumer> network, ArrayList<String> interestedCompanies)
+    protected User(Resume resume, ArrayList<String> interestedCompanies)
     {
         super(resume);
         notifications = new ArrayList<>();
@@ -23,14 +23,14 @@ public class User extends Consumer implements Observer
     public void update(Notification notification)
     {
         notifications.add(notification);
-        System.out.println("Notification for " + getName() + ": " + notification.getTitle() + " - " + notification.getContent());
+        System.out.println("Notification for " + getName() + ": " + notification.getTitle() + " - " +
+                notification.getContent());
     }
 
     @Override
     public String toString()
     {
         return getName() + ", user";
-                //+ " " + "(" + getCode() + ")";
 
     }
 
@@ -44,11 +44,6 @@ public class User extends Consumer implements Observer
     public ArrayList<String> getInterestedCompanies()
     {
         return interestedCompanies;
-    }
-
-    public void setInterestedCompanies(ArrayList<String> interestedCompanies)
-    {
-        this.interestedCompanies = interestedCompanies;
     }
 
 }

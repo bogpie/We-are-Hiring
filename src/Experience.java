@@ -5,17 +5,18 @@ import java.time.LocalDate;
 public class Experience implements Comparable<Experience>
 {
     private String company;
-    private String position;
+    private final String position;
     private final String department;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
-    public Experience(LocalDate startDate, LocalDate endDate, String position, String company, String department) throws InvalidDatesException
+    public Experience(LocalDate startDate, LocalDate endDate, String position, String company, String department)
+            throws InvalidDatesException
     {
         this.company = company;
         this.position = position;
         this.department = department;
-        if (endDate!=null && startDate.compareTo(endDate) > 0)
+        if (endDate != null && startDate.compareTo(endDate) > 0)
         {
             throw new InvalidDatesException();
         }
@@ -58,21 +59,6 @@ public class Experience implements Comparable<Experience>
     public String getDepartment()
     {
         return department;
-    }
-
-    public void setStartDate(LocalDate startDate)
-    {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(LocalDate endDate)
-    {
-        this.endDate = endDate;
-    }
-
-    public void setPosition(String position)
-    {
-        this.position = position;
     }
 
     public void setCompany(String company)

@@ -1,7 +1,7 @@
 public class Constraint
 {
-    private Number minimum;
-    private Number maximum;
+    private final Number minimum;
+    private final Number maximum;
 
     public Constraint(Number minimum, Number maximum)
     {
@@ -28,26 +28,6 @@ public class Constraint
             return false;
         }
         return (value.doubleValue() >= minimum.doubleValue()) && (value.doubleValue() <= maximum.doubleValue());
-    }
-
-    public Number getMinimum()
-    {
-        return minimum;
-    }
-
-    public void setMinimum(Number minimum)
-    {
-        this.minimum = minimum;
-    }
-
-    public Number getMaximum()
-    {
-        return maximum;
-    }
-
-    public void setMaximum(Number maximum)
-    {
-        this.maximum = maximum;
     }
 
 }

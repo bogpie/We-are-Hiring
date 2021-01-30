@@ -1,11 +1,5 @@
-import java.util.ArrayList;
-
 public class Finance extends Department
 {
-    public Finance(ArrayList<Employee> employees, ArrayList<Job> jobs)
-    {
-        super(employees, jobs);
-    }
 
     public Finance()
     {

@@ -94,7 +94,8 @@ public class DeserializeHelpers
         return educationSet;
     }
 
-    public static ParsedInfo deserializeConsumer(JsonObject consumerObject) throws InvalidDatesException, ResumeIncompleteException
+    public static ParsedInfo deserializeConsumer(JsonObject consumerObject)
+            throws InvalidDatesException, ResumeIncompleteException
     {
         Information information = DeserializeHelpers.deserializeInformation(consumerObject);
 

@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class Company implements Subject
 {
     private final String companyName;
-    private Manager manager;
-    private ArrayList<Department> departments;
-    private ArrayList<Recruiter> recruiters;
-    private ArrayList<User> applicants;
+    private final Manager manager;
+    private final ArrayList<Department> departments;
+    private final ArrayList<Recruiter> recruiters;
+    private final ArrayList<User> applicants;
 
     public Company(String companyName, Manager manager)
     {
@@ -191,34 +191,5 @@ public class Company implements Subject
         return departments;
     }
 
-    public ArrayList<Recruiter> getRecruiters()
-    {
-        return recruiters;
-    }
 
-
-    public ArrayList<User> getApplicants()
-    {
-        return applicants;
-    }
-
-    public void setApplicants(ArrayList<User> applicants)
-    {
-        this.applicants = applicants;
-    }
-
-    public void setManager(Manager manager)
-    {
-        this.manager = manager;
-    }
-
-    public void setDepartments(ArrayList<Department> departments)
-    {
-        this.departments = departments;
-    }
-
-    public void setRecruiters(ArrayList<Recruiter> recruiters)
-    {
-        this.recruiters = recruiters;
-    }
 }

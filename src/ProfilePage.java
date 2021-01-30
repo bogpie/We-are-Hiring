@@ -11,11 +11,9 @@ import java.util.TreeSet;
 public class ProfilePage extends DefaultPanel implements ActionListener, ListSelectionListener
 {
     private JList<Consumer> list;
-    private DefaultListModel<Consumer> model;
-    private JTextField searchField;
-    private int selectedIndex;
-    private User selectedUser;
-    private JTree tree;
+    private final DefaultListModel<Consumer> model;
+    private final JTextField searchField;
+    private final JTree tree;
 
     public ProfilePage()
     {
@@ -118,7 +116,8 @@ public class ProfilePage extends DefaultPanel implements ActionListener, ListSel
     {
         for (Experience experience : experienceSet)
         {
-            DefaultMutableTreeNode experienceNode = new DefaultMutableTreeNode(experience.getPosition() + " @ " + experience.getCompany());
+            DefaultMutableTreeNode experienceNode = new DefaultMutableTreeNode(experience.getPosition() +
+                    " @ " + experience.getCompany());
             experienceSetNode.add(experienceNode);
             experienceNode.add(new DefaultMutableTreeNode("Department: " + experience.getDepartment()));
             experienceNode.add(new DefaultMutableTreeNode("Start date: " + experience.getStartDate()));

@@ -1,7 +1,7 @@
 public class Notification
 {
-    private String title;
-    private String content;
+    private final String title;
+    private final String content;
 
     public Notification(String title, String content)
     {
@@ -14,18 +14,9 @@ public class Notification
         return title;
     }
 
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
-
     public String getContent()
     {
         return content;
     }
 
-    public void setContent(String content)
-    {
-        this.content = content;
-    }
 }

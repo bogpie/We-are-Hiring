@@ -10,7 +10,6 @@ public abstract class Consumer
     private ArrayList<Consumer> network;
     private String code;
 
-
     public Consumer()
     {
         network = new ArrayList<>();

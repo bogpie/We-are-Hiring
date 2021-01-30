@@ -1,19 +1,10 @@
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-/*
-class ComparatorByScore implements Comparator<Request<Job,Consumer>>
-{
-    @Override
-    public int compare(Request<Job, Consumer> o1, Request<Job, Consumer> o2)
-    {
-        return o2.getScore().compareTo(o1.getScore());
-    }
-}*/
 
 public class Manager extends Employee
 {
-    private TreeSet<Request<Job, Consumer>> requests;
+    private final TreeSet<Request<Job, Consumer>> requests;
 
     protected Manager(Resume resume, ArrayList<Consumer> network, String companyName, Double salary)
     {
@@ -33,12 +24,14 @@ public class Manager extends Employee
             if (!request.getKey().getName().equals(job.getName())) continue;
             if (job.getNoPositions() == 0)
             {
-                user.update(new Notification("Rejected from " + job.toString(),"Reason: no more positions left"));
+                user.update(new Notification("Rejected from " + job.toString(),
+                        "Reason: no more positions left"));
                 continue;
             }
             if (!job.meetsRequirement(user))
             {
-                user.update(new Notification("Rejected from " + job.toString(),"Reason: didn't meet requirements"));
+                user.update(new Notification("Rejected from " + job.toString(),
+                        "Reason: didn't meet requirements"));
             }
 
             ArrayList<User> users = application.getUsers();
@@ -67,7 +60,11 @@ public class Manager extends Employee
                 if (department.getJobs().contains(job))
                 {
                     department.add(employee);
-                    user.update(new Notification("Accepted! ",job.toString()));
+                    user.update(new Notification("Accepted! ", job.toString()));
+
+                    for (Company company : application.getCompanies())
+                        company.removeObserver(user);
+
                     break;
                 }
             }
@@ -92,30 +89,30 @@ public class Manager extends Employee
 
     public void forceEmploy(Job job, User user)
     {
+        Application application = Application.getInstance();
+
         /// previously unemployed
         Application.getInstance().getUsers().remove(user);
 
         Employee employee = user.convert();
         employee.setCompanyName(getCompanyName());
 
-        Company desiredCompany = Application.getInstance().getCompany(job.getCompanyName());
+        Company desiredCompany = application.getCompany(job.getCompanyName());
 
         for (Department department : desiredCompany.getDepartments())
         {
             if (department.getJobs().contains(job))
             {
                 department.add(user.convert());
-                user.update(new Notification("Accepted! ",job.toString()));
+                user.update(new Notification("Accepted! ", job.toString()));
                 break;
             }
         }
 
-        job.setNoPositions(job.getNoPositions() - 1);
-    }
+        for (Company company : application.getCompanies())
+            company.removeObserver(user);
 
-    public void setRequests(TreeSet<Request<Job, Consumer>> requests)
-    {
-        this.requests = requests;
+        job.setNoPositions(job.getNoPositions() - 1);
     }
 
     public TreeSet<Request<Job, Consumer>> getRequests()

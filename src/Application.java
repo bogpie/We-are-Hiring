@@ -1,13 +1,11 @@
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-//singleton
 
 public class Application
 {
-    private ArrayList<Company> companies;
+    private final ArrayList<Company> companies;
     private ArrayList<User> users;
     private static Application instance = null;
 
@@ -17,7 +15,7 @@ public class Application
 
     private ArrayList<Recruiter> recruiters;
     private ArrayList<Manager> managers;
-    private HashMap<String,Consumer> codeToConsumer;
+    private final HashMap<String,Consumer> codeToConsumer;
 
     private Application()
     {
@@ -65,16 +63,6 @@ public class Application
         return instance;
     }
 
-    public ArrayList<Job> getJobs(List<String> companies)
-    {
-        ArrayList<Job> jobs = new ArrayList<>();
-        for (String companyName : companies)
-        {
-            jobs.addAll(getCompany(companyName).getJobs());
-        }
-        return jobs;
-    }
-
     public ArrayList<Company> getCompanies()
     {
         return companies;
@@ -112,11 +100,6 @@ public class Application
         this.users = users;
     }
 
-    public void setCompanies(ArrayList<Company> companies)
-    {
-        this.companies = companies;
-    }
-
     public ArrayList<Employee> getEmployees()
     {
         return employees;
@@ -145,11 +128,6 @@ public class Application
     public void setManagers(ArrayList<Manager> managers)
     {
         this.managers = managers;
-    }
-
-    public void setCodeToConsumer(HashMap<String, Consumer> codeToConsumer)
-    {
-        this.codeToConsumer = codeToConsumer;
     }
 
     public HashMap<String, Consumer> getCodeToConsumer()

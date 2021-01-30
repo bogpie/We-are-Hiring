@@ -31,14 +31,7 @@ public class Recruiter extends Employee
     public String toString()
     {
         return super.toString() + ", recruiter";
-        /*
-        return "Recruiter{" +
-                "resume=" + resume +
-                ", network=" + getNetwork() +
-                ", rating=" + rating +
-                '}';
 
-         */
     }
 
     public Double getRating()

@@ -4,10 +4,9 @@ import java.awt.event.ActionListener;
 
 public class ReturnPanel extends JPanel implements ActionListener
 {
-    private JButton button;
     public ReturnPanel()
     {
-        button = new JButton("Return to main page");
+        JButton button = new JButton("Return to main page");
         button.addActionListener(this);
         add(button);
     }

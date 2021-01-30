@@ -28,7 +28,6 @@ public class Request<K, V> implements Comparable<Request<K, V>>
     @Override
     public int compareTo(Request<K, V> otherRequest)
     {
-        //return ((Request) other).getScore().compareTo(getScore());
         return otherRequest.getScore().compareTo(getScore());
     }
 

@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class ManagerPage extends DefaultPanel implements ActionListener, TreeSelectionListener
 {
-    private Manager manager;
-    private JTree tree;
+    private final Manager manager;
+    private final JTree tree;
     private Request<Job, Consumer> selectedRequest = new Request<>();
     private DefaultMutableTreeNode selectedNode = new DefaultMutableTreeNode();
 
@@ -27,8 +27,6 @@ public class ManagerPage extends DefaultPanel implements ActionListener, TreeSel
         grid.add(requestsPanel);
 
         DefaultMutableTreeNode managerNode = new DefaultMutableTreeNode(manager);
-
-        Object object = managerNode.getUserObject();
 
         tree = new JTree(managerNode);
         requestsPanel.add(tree);
@@ -50,9 +48,6 @@ public class ManagerPage extends DefaultPanel implements ActionListener, TreeSel
         actionsPanel.add(acceptButton);
         actionsPanel.add(rejectButton);
 
-
-        //show();
-        //pack();
     }
 
     @Override
@@ -68,19 +63,22 @@ public class ManagerPage extends DefaultPanel implements ActionListener, TreeSel
             {
                 if (selectedRequest.getKey().getNoPositions() == 0)
                 {
-                    JOptionPane.showMessageDialog(this, "All the job positions have been filled!");
+                    JOptionPane.showMessageDialog(this,
+                            "All the job positions have been filled!");
                     return;
                 }
                 if (!Application.getInstance().getUsers().contains(user))
                 {
-                    JOptionPane.showMessageDialog(this, "User already employed!");
+                    JOptionPane.showMessageDialog(this,
+                            "User already employed!");
                     return;
                 }
                 manager.forceEmploy(job, user);
             }
             else
             {
-                user.update(new Notification("Rejected from " + job.toString(), "Reason: rejected by manager"));
+                user.update(new Notification("Rejected from " + job.toString(),
+                        "Reason: rejected by manager"));
             }
 
             manager.getRequests().remove(selectedRequest);

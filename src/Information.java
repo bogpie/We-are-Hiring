@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Information
 {
@@ -14,7 +13,8 @@ public class Information
     private ArrayList<String> languages;
     private ArrayList<String> languagesLevel;
 
-    public Information(String familyName, String givenName, String email, String phone, LocalDate dateOfBirth, String genre, ArrayList<String> languages, ArrayList<String> languagesLevel)
+    public Information(String familyName, String givenName, String email, String phone, LocalDate dateOfBirth,
+                       String genre, ArrayList<String> languages, ArrayList<String> languagesLevel)
     {
         this.phone = phone;
         this.familyName = familyName;
@@ -26,11 +26,6 @@ public class Information
         this.languagesLevel = languagesLevel;
     }
 
-    public Information()
-    {
-
-    }
-
     public String getFamilyName()
     {
         return familyName;
@@ -40,6 +35,7 @@ public class Information
     {
         return givenName;
     }
+
     public String getName()
     {
         return givenName + " " + familyName;
@@ -70,49 +66,9 @@ public class Information
         return languagesLevel;
     }
 
-    public void setFamilyName(String familyName)
-    {
-        this.familyName = familyName;
-    }
-
-    public void setGivenName(String givenName)
-    {
-        this.givenName = givenName;
-    }
-
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
     public String getPhone()
     {
         return phone;
-    }
-
-    public void setPhone(String phone)
-    {
-        this.phone = phone;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth)
-    {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setGenre(String genre)
-    {
-        this.genre = genre;
-    }
-
-    public void setLanguages(ArrayList<String> languages)
-    {
-        this.languages = languages;
-    }
-
-    public void setLanguagesLevel(ArrayList<String> languagesLevel)
-    {
-        this.languagesLevel = languagesLevel;
     }
 
 
